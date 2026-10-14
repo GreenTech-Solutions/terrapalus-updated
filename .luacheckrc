@@ -15,5 +15,3 @@ for _, code in ipairs({ "611", "612", "613", "614", "211", "212", "213", "314", 
 end
 -- LuaSurface.daytime and freeze_daytime are writable; luacheck's std marks game.surfaces read-only
 files["control.lua"] = { ignore = { "122" } }
--- stone_driving_sound is not defined by base, so the ore has no driving sound (upstream, unchanged in the port)
-files["prototypes/entity/resources.lua"] = { ignore = { "113" } }
