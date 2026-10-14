@@ -1,11 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 2026-10-14
+  Info:
+    - Published as terrapalus-updated, a fork of Terra Palus 0.2.8 by Lukah
+  Features:
+    - Support Factorio 2.1
+---------------------------------------------------------------------------------------------------
 Version: 0.2.8
 Date: 2025-12-10
   Bugfixes:
     - Fixed multiplayer desync caused by first-tick rescan using local variable
     - Sticker refresh now uses synchronized storage flag via on_player_joined_game event
     - Frozen/thawing entity stickers now properly reapply after save/load in both single-player and multiplayer
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.7
 Date: 2025-12-09
@@ -14,7 +20,6 @@ Date: 2025-12-09
     - Added translations for Ultravium Power Systems (batteries, charging stations)
     - Added translations for UV Personal Equipment (defense turret, personal shield)
     - Languages updated: Spanish, French, Hindi, Russian, Simplified Chinese
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.6
 Date: 2025-12-01
@@ -28,7 +33,6 @@ Date: 2025-12-01
     - Added ERM Remote API integration for proper enemy force detection
     - Fallback pattern matching for other mods with custom enemy forces
     - Enemy force list cached for 5 seconds to minimize performance impact
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.5
 Date: 2025-11-30
@@ -41,7 +45,6 @@ Date: 2025-11-30
     - Added custom personal UV defense technology icon
     - Added custom personal UV defense equipment sprite (equipment grid)
     - Added custom personal UV defense item icon
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.4
 Date: 2025-11-27
@@ -63,7 +66,6 @@ Date: 2025-11-27
   Info:
     - Solves the "no solar power on Terra Palus" problem for power armor users!
     - No longer need to be best buddies with Steam / Nuclear power, pump that juice right out of the planet's core!
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.3
 Date: 2025-11-27
@@ -85,7 +87,6 @@ Date: 2025-11-24
     - Fixed inhibitor lamps not firing freeze events after game load
     - Fixed Factorio 2.0 compatibility (global -> storage migration)
     - Added sticker reapplication on load for frozen/thawing entities
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.1
 Date: 2025-11-23
@@ -93,7 +94,6 @@ Date: 2025-11-23
     - Adds a configurable multiplier (0.1x - 10x) for inhibitor lamp power consumption, allowing players to adjust energy costs to their preference (thanks Lithium941!). Affects all lamp variants: inhibitor-lamp, mk2, mk3, and damage variant.
     - Updated Russian locale cfg (please let me know if any of these translations are incorrect!)
     - Adds locale support for Spanish, French, Hindi, and Mandarin Chinese (please let me know if any of these translations are incorrect!)
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2025-11-23
@@ -115,7 +115,6 @@ Date: 2025-11-23
     - Fixed lamps not working after game load (rescan in on_configuration_changed)
     - Fixed UV Spotlight not detecting pentapods (added spider-unit to entity filter)
     - Fixed spotlight logic to properly enable/disable based on unfrozen enemy presence
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.9
 Date: 2025-11-23
@@ -135,7 +134,6 @@ Date: 2025-11-23
     - Added locale strings for all new mod settings
     - Allowed captive biter spawner placement with Aquilo tech (thanks SeymourWilliamsJr!)
     - Allowed fish breeding on Terra Palus (thanks SeymourWilliamsJr!)
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.8
 Date: 2025-11-23
@@ -143,20 +141,17 @@ Date: 2025-11-23
     - Fixed missing orbit graphic for PlanetLib (thanks Samario, lasagna11 and Kjorn!)
     - Slightly adjusted orbit to actually connect with the planet
     - Fixed incorrect Changelog.txt dates to be 2025-11 not 2025-01 (thanks Samario, that's a typo on my part)
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.7
 Date: 2025-11-22
   Bugfixes:
     - Fixed daytime not being set to midnight on Terra Palus (now properly sets on player arrival and mod update)
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.6
 Date: 2025-11-22
   Localization:
     - Added Russian translation (thanks to Neuromantix!)
     - Fixed missing locale strings for map generation settings (lowland size, moisture threshold, fertile soil frequency)
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.5
 Date: 2025-11-22
@@ -191,7 +186,6 @@ Date: 2025-11-22
   Technical:
     - Added data-updates.lua for PlanetsLib orbit support (still new to this, might not 100% work)
     - Added data-final-fixes.lua for Gleba entity compatibility
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 2024-11-16
