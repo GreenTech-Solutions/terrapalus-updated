@@ -1,0 +1,210 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.2.8
+Date: 2025-12-10
+  Bugfixes:
+    - Fixed multiplayer desync caused by first-tick rescan using local variable
+    - Sticker refresh now uses synchronized storage flag via on_player_joined_game event
+    - Frozen/thawing entity stickers now properly reapply after save/load in both single-player and multiplayer
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.7
+Date: 2025-12-09
+  Localization:
+    - Updated all translation files with missing strings for v0.2.4+ content
+    - Added translations for Ultravium Power Systems (batteries, charging stations)
+    - Added translations for UV Personal Equipment (defense turret, personal shield)
+    - Languages updated: Spanish, French, Hindi, Russian, Simplified Chinese
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.6
+Date: 2025-12-01
+  Compatibility:
+    - Added Enemy Race Manager (ERM) compatibility - UV effects now work on all ERM enemy races
+    - Inhibitor lamps now freeze Zerg, Protoss, and other ERM units
+    - UV Spotlights now target and freeze ERM units
+    - UV Personal Shield now freezes nearby ERM units
+    - UV turret flee effect now works on ERM units
+  Technical:
+    - Added ERM Remote API integration for proper enemy force detection
+    - Fallback pattern matching for other mods with custom enemy forces
+    - Enemy force list cached for 5 seconds to minimize performance impact
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.5
+Date: 2025-11-30
+  Graphics:
+    - Added custom UV turret shooting sprite with pink UV glow effect
+    - Added custom UV turret raising/folding animation sprite
+    - Added custom inhibitor lamp technology icon
+    - Added custom UV battery technology icon (Ultravium Power Systems tiers 1-3)
+    - Added custom UV battery item icon (all battery variants)
+    - Added custom personal UV defense technology icon
+    - Added custom personal UV defense equipment sprite (equipment grid)
+    - Added custom personal UV defense item icon
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+Date: 2025-11-27
+  Features:
+    - Added Ultravium Battery - consumable item that charges power armor with 10 MJ
+    - Added Ultravium Battery Pack - consumable item that charges power armor with 50 MJ
+    - Added Ultravium Power Cell - consumable item that charges power armor with 200 MJ
+    - Added Armor Charging Station - wireless charging for power armor/vehicles within 15 tiles
+    - Added Armor Charging Station MK2 - extended range (22 tiles) and 2 MW charging rate
+    - Added Armor Charging Station MK3 - maximum range (30 tiles) and 4 MW charging rate
+    - Added UV Defense Turret (equipment) - personal laser turret that causes enemies to flee
+    - Added UV Personal Shield (equipment) - freezes nearby enemies within 10 tiles
+    - Added Strafer Projectile Interception - UV Personal Shield destroys incoming Strafer projectiles
+    - Added 3 new technologies: Ultravium Power Systems (tiers 1-3), UV Personal Equipment
+  Changes:
+    - Ultravium fluid now has practical uses (batteries, charging stations)
+    - Charging stations only draw power when actively charging players/vehicles
+    - UV Personal Shield consumes 20 kJ per enemy frozen, 5 kJ per projectile intercepted
+  Info:
+    - Solves the "no solar power on Terra Palus" problem for power armor users!
+    - No longer need to be best buddies with Steam / Nuclear power, pump that juice right out of the planet's core!
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.3
+Date: 2025-11-27
+  Features:
+    - Add space age mod tag!
+---------------------------------------------------------------------------------------------------
+Version: 0.2.2
+Date: 2025-11-24
+  Performance:
+    - Batch processing: Frozen entities (20/tick), spotlights (5/tick), lamps (10/tick)
+    - Throttled spotlight targeting to run every 30 ticks (2x/sec) instead of every tick
+    - Spatial partitioning: Lamps cached by surface for faster range checks
+    - Entity caching: Spotlights tracked via build/destroy events, eliminates find_entities_filtered calls
+    - O(1) list operations: Swap-and-pop removal instead of table.remove for lamps/spotlights
+    - Event handler optimization: Pre-defined lookup tables for UV turrets and enemy types, early exits
+    - Loop optimization: Single-pass for finding closest unfrozen enemy (combined filtering + distance calc)
+    - Local variable caching for positions and frequently accessed globals
+  Bugfixes:
+    - Fixed inhibitor lamps not firing freeze events after game load
+    - Fixed Factorio 2.0 compatibility (global -> storage migration)
+    - Added sticker reapplication on load for frozen/thawing entities
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.1
+Date: 2025-11-23
+  Features:
+    - Adds a configurable multiplier (0.1x - 10x) for inhibitor lamp power consumption, allowing players to adjust energy costs to their preference (thanks Lithium941!). Affects all lamp variants: inhibitor-lamp, mk2, mk3, and damage variant.
+    - Updated Russian locale cfg (please let me know if any of these translations are incorrect!)
+    - Adds locale support for Spanish, French, Hindi, and Mandarin Chinese (please let me know if any of these translations are incorrect!)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+Date: 2025-11-23
+  Features:
+    - Added UV Turret MK2 (Range 35, Damage 35, 2.5x modifier)
+    - Added UV Turret MK3 (Range 42, Damage 45, 3x modifier)
+    - Added UV Turret (Area) - AoE damage to all enemies within 6 tile radius
+    - Added UV Turret (Chain) - Primary target + splash damage to nearby enemies within 8 tiles
+    - Added UV Spotlight - Turret-based directional lamp that targets and freezes enemies
+    - Added Inhibitor Lamp MK2 (40% increased freeze radius)
+    - Added Inhibitor Lamp MK3 (80% increased freeze radius)
+    - Added Inhibitor Lamp (Damage) - Freezes enemies + applies 50% slow and damage over time
+    - Custom icons and entity graphics for inhibitor lamps
+  Changes:
+    - UV Spotlight uses rapid target switching (0.25s freeze, 30s duration) for crowd control
+    - Frozen enemies set to neutral force so turrets ignore them and retarget
+    - Flee behavior now works with all turret variants
+  Bugfixes:
+    - Fixed lamps not working after game load (rescan in on_configuration_changed)
+    - Fixed UV Spotlight not detecting pentapods (added spider-unit to entity filter)
+    - Fixed spotlight logic to properly enable/disable based on unfrozen enemy presence
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.9
+Date: 2025-11-23
+  Major Changes:
+    - Added 30+ new mod settings for extensive planet customization
+      - Surface Properties: temperature, gravity, solar power, magnetic field
+      - Day/Night Cycle: cycle duration in minutes
+      - Terrain Scale: elevation scale, biome scale, mud basin scale
+      - Starting Area: multiplier, distance, radius, fertile radius
+      - Resource Distribution: fertile spot radius, spacing, region size, candidate spots
+      - Enemy Spawning: spawner frequency/size, small spawner frequency/size, safe zone radius
+      - Visual Effects: fog opacity and RGB color, cloud opacity and RGB color
+  Bugfixes:
+    - Fixed Palusium ore not spawning in starting area (was set to has_starting_area_placement = false)
+    - Increased Palusium ore density from 0.9 to 8 (now spawns like iron instead of uranium)
+    - Increased Palusium ore patches per km² from 1.25 to 2.5
+    - Added locale strings for all new mod settings
+    - Allowed captive biter spawner placement with Aquilo tech (thanks SeymourWilliamsJr!)
+    - Allowed fish breeding on Terra Palus (thanks SeymourWilliamsJr!)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.8
+Date: 2025-11-23
+  Bugfixes:
+    - Fixed missing orbit graphic for PlanetLib (thanks Samario, lasagna11 and Kjorn!)
+    - Slightly adjusted orbit to actually connect with the planet
+    - Fixed incorrect Changelog.txt dates to be 2025-11 not 2025-01 (thanks Samario, that's a typo on my part)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+Date: 2025-11-22
+  Bugfixes:
+    - Fixed daytime not being set to midnight on Terra Palus (now properly sets on player arrival and mod update)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.6
+Date: 2025-11-22
+  Localization:
+    - Added Russian translation (thanks to Neuromantix!)
+    - Fixed missing locale strings for map generation settings (lowland size, moisture threshold, fertile soil frequency)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+Date: 2025-11-22
+  Info:
+    - First off, my sincere apologies for the year-long delay between updates! Life got busy, but I'm back and committed to improving Terra Palus based on all your fantastic feedback.
+    - This mod is released under the MIT License - feel free to fork, modify, and build upon it!
+    - Special thanks to everyone who took the time to report issues and suggest improvements.
+  Major Changes:
+    - Complete recipe rebalance (thanks Samario, rajonrondo76, dragon_gawain, Mouseas for the detailed feedback!)
+      - Palusium Ore: mining time reduced from 3s to 0.1s, now requires 50 water
+      - Palusium Plate: 50 ore → 4 ore, crafting time 3.2s, now allows productivity
+      - Palusium Powder: 25 plate → 5 ore, moved to assembler, allows productivity
+      - Palusium Crystal: 25 powder + 25 water → 10 powder + 500 water, 15s craft time, allows productivity
+      - Overall cost reduced from ~3 million ore per lamp (this was unintended, I was still learning!) to something actually achievable!
+    - UV Turret improvements (thanks rajonrondo76 for the effectiveness feedback)
+      - Damage increased from 1 to 25
+      - Fire rate doubled (cooldown 40 → 20)
+      - Range increased from 24 to 28 tiles
+      - Beam duration extended for better visual effect
+    - Solar power in orbit increased from 20% to 100% (thanks Kalasen!)
+    - Added biolab and agricultural tower support - Terra Palus now has a reason to establish a base! (thanks dragon_gawain for the suggestion)
+    - Optional PlanetsLib integration for proper orbit visualization around Gleba (still new to this, might not 100% work - thanks Kryzeth!)
+  Bugfixes:
+    - Inhibitor lamp recipe now properly locked behind technology (thanks Kryzeth, cackling.fiend, thekabal, PieMC!)
+    - Fixed lamp stopping work after power loss/restore cycle (thanks Lithium941!)
+    - Fixed lamp working without power when disabled via circuit network (thanks Lithium941!)
+    - Added weight parameters to all items for rocket transport (thanks Lithium941, PieMC!)
+  Quality of Life:
+    - Default lamp color changed to purple for better visibility (thanks Fr_Dae!)
+    - Added purple minimap visualization for lamps
+    - Night vision no longer forcibly removed - now just displays a warning (thanks Scherazade!)
+  Technical:
+    - Added data-updates.lua for PlanetsLib orbit support (still new to this, might not 100% work)
+    - Added data-final-fixes.lua for Gleba entity compatibility
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.4
+Date: 2024-11-16
+  Changes:
+    - Bumped minimum Factorio 'base' version from 2.0.13 to 2.0.15
+    - Terra Palus:
+      - No longer orbits the system's sun
+      - Updated surface render parameters to include purple fog
+    - Tech Tree:
+      - Added new tech (UV Turret)
+      - Minor changes to inhibitor lamp functions
+    - Added 3 music tracks to rotation
+    - Added changelog.txt so I don't look weird
+  Bugfixes:
+    - Fixed placeholder tech tree icons
+    - I probably made more bugs so... watch out for those (and let me know so I can fix them!)
