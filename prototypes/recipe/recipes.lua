@@ -63,7 +63,7 @@ data:extend({
     {
         type = "recipe",
         name = "palusium-processing",
-        category = "smelting",
+        categories = {"smelting"},
         enabled = false,
         energy_required = 3.2,
         ingredients = {
@@ -77,7 +77,7 @@ data:extend({
     {
         type = "recipe",
         name = "palusium-crushing",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 2,
         ingredients = {
@@ -91,7 +91,7 @@ data:extend({
     {
         type = "recipe",
         name = "palusium-refining",
-        category = "chemistry",
+        categories = {"chemistry"},
         enabled = false,
         energy_required = 15,
         ingredients = {
@@ -106,7 +106,7 @@ data:extend({
     {
         type = "recipe",
         name = "palusium-liquefaction",
-        category = "chemistry",
+        categories = {"chemistry"},
         subgroup = "fluid-recipes",
         order = "c[oil-products]",
         energy_required = 25,
@@ -139,7 +139,7 @@ data:extend({
     {
         type = "recipe",
         name = "ultravium-battery",
-        category = "chemistry",
+        categories = {"chemistry"},
         enabled = false,
         energy_required = 5,
         ingredients = {
@@ -155,7 +155,7 @@ data:extend({
     {
         type = "recipe",
         name = "ultravium-battery-pack",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 10,
         ingredients = {
@@ -172,7 +172,7 @@ data:extend({
     {
         type = "recipe",
         name = "ultravium-power-cell",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 15,
         ingredients = {
@@ -190,7 +190,7 @@ data:extend({
     {
         type = "recipe",
         name = "armor-charging-station",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 10,
         ingredients = {
@@ -206,7 +206,7 @@ data:extend({
     {
         type = "recipe",
         name = "armor-charging-station-mk2",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 15,
         ingredients = {
@@ -222,7 +222,7 @@ data:extend({
     {
         type = "recipe",
         name = "armor-charging-station-mk3",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 20,
         ingredients = {
@@ -240,7 +240,7 @@ data:extend({
     {
         type = "recipe",
         name = "uv-defense-turret",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 15,
         ingredients = {
@@ -256,7 +256,7 @@ data:extend({
     {
         type = "recipe",
         name = "uv-personal-shield",
-        category = "crafting",
+        categories = {"crafting"},
         enabled = false,
         energy_required = 15,
         ingredients = {

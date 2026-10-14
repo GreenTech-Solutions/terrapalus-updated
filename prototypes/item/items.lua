@@ -74,7 +74,7 @@ data:extend({
         subgroup = "raw-resource",
         order = "b[palusium-ore]",
         stack_size = 50,
-        fuel_category = "chemical",
+        fuel_categories = {"chemical"},
         fuel_value = "25kJ",
         inventory_move_sound = item_sounds.resource_inventory_move,
         pick_sound = item_sounds.resource_inventory_pickup,
