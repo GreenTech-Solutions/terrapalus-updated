@@ -589,8 +589,6 @@ function MapGen.terrapalus()
             cliff_elevation = "cliff_elevation_from_elevation",
             ["entity:gleba-spawner:probability"] = "terrapalus_spawner",
             ["entity:gleba-spawner-small:probability"] = "terrapalus_spawner_small",
-            ["entity:yumako-tree:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - terrapalus_plants_noise) * control:gleba_plants:size)",
-            ["entity:jellystem:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - terrapalus_plants_noise) * control:gleba_plants:size)",
         },
         autoplace_controls = {
             ["iron-ore"] = {},
