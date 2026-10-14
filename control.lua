@@ -471,8 +471,8 @@ script.on_event(defines.events.on_surface_created, function(event)
 end)
 
 -- Add lamp/spotlight/charging station to global list when built
----@param event EventData.on_built_entity|EventData.on_robot_built_entity
-script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, function(event)
+---@param event EventData.on_built_entity|EventData.on_robot_built_entity|EventData.script_raised_built|EventData.script_raised_revive
+script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity, defines.events.script_raised_built, defines.events.script_raised_revive}, function(event)
     local entity = event.entity
     if is_inhibitor_lamp(entity.name) then
         initialize_storage()
@@ -493,8 +493,8 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
 end)
 
 -- Remove lamp/spotlight/charging station from global list when destroyed
----@param event EventData.on_entity_died|EventData.on_player_mined_entity|EventData.on_robot_mined_entity
-script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity}, function(event)
+---@param event EventData.on_entity_died|EventData.on_player_mined_entity|EventData.on_robot_mined_entity|EventData.script_raised_destroy
+script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.script_raised_destroy}, function(event)
     local entity = event.entity
     if is_inhibitor_lamp(entity.name) then
         initialize_storage()
