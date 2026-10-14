@@ -42,6 +42,7 @@ Terra Palus is a small swamp-moon that orbits Gleba; you can unlock access to Te
   - French
   - Hindi
   - Mandarin Chinese
+  - Polish (thanks S3BA!)
 
 # Changes
 
