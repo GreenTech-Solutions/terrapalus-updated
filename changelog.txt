@@ -1,4 +1,27 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+Date: 2026-10-14
+  Features:
+    - [locale] Polish translation by S3BA
+    - [settings] Startup setting "Stromatolites on Terra Palus", off by default
+    - [settings] Startup setting "Uranium ore on Terra Palus", off by default
+  Bugfixes:
+    - [compat] Resource Spawner Overhaul leaves Terra Palus and palusium ore alone, so the moon gets its palusium and spawners
+    - [compat] Tenebris Prime and Terra Palus each generate their own terrain when both are installed
+    - Enemies frozen when a save switches from Terra Palus no longer stay frozen forever
+    - Gleba's plants and mud basins generate as in vanilla again: Terra Palus defines its own noise expressions instead of overriding gleba_plants_noise and gleba_mud_basins
+    - [graphics] Clouds over Terra Palus default to opacity 0.7, so they no longer hide the ground; the startup setting still goes up to 1
+    - [graphics] Inhibitor lamps have the circuit connector of the small lamp: wires attach to it instead of the lamp's center
+    - Inhibitor lamps, UV spotlights and armor charging stations built or removed by another mod's script work as if built by hand
+    - No more "noise expression is not defined" warnings for yumako and jellystem when Terra Palus generates
+    - [sound] Palusium ore has the walking and driving sounds of vanilla ores
+    - Terra Palus loads when another mod removes the autoplace of the pentapod spawners
+    - The biolab and the agricultural tower are no longer placeable on every planet and space platform: their surface conditions are widened just enough for Terra Palus instead of cleared
+    - The cached list of enemy forces lives in storage, so a player joining a multiplayer game cannot desync from it
+    - The mod loads when another mod has replaced circuit_connector_definitions without the vanilla lamp and laser turret entries
+    - The night vision warning shows when a player joins on Terra Palus
+    - The pentapod spawner sliders of the map generator and the four spawner startup settings change how many spawners Terra Palus gets
+---------------------------------------------------------------------------------------------------
 Version: 0.3.0
 Date: 2026-10-14
   Info:
