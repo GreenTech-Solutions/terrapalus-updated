@@ -61,9 +61,8 @@ local VALID_ENEMY_TYPES = {
 }
 
 -- Enemy Race Manager (ERM) compatibility
--- Cache for enemy forces list (refreshed periodically)
-local cached_enemy_forces = nil
-local enemy_forces_cache_tick = 0
+-- Cache for enemy forces list (refreshed periodically); kept in storage so that every peer in multiplayer, including
+-- one that just joined, refreshes it on the same tick
 local ENEMY_FORCES_CACHE_DURATION = 300  -- Refresh every 5 seconds
 
 -- Check if a force is an enemy force (uses ERM API if available)
@@ -79,8 +78,8 @@ end
 -- Get list of all enemy forces for find_entities_filtered
 local function get_enemy_forces()
     -- Return cached value if still valid
-    if cached_enemy_forces and game.tick - enemy_forces_cache_tick < ENEMY_FORCES_CACHE_DURATION then
-        return cached_enemy_forces
+    if storage.enemy_forces and game.tick - storage.enemy_forces_tick < ENEMY_FORCES_CACHE_DURATION then
+        return storage.enemy_forces
     end
 
     local forces = {}
@@ -101,8 +100,8 @@ local function get_enemy_forces()
     end
 
     -- Cache the result
-    cached_enemy_forces = forces
-    enemy_forces_cache_tick = game.tick
+    storage.enemy_forces = forces
+    storage.enemy_forces_tick = game.tick
     return forces
 end
 
