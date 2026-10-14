@@ -416,13 +416,13 @@ data:extend({
             gleba_style = "clamp(elevation_value * 0.4 + mud_noise, -1.0, 15.9) + 0.2 * mud_noise",
             basic_noise = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1000000, octaves = 3, input_scale = 1/" .. elevation_scale .. "}",
             elevation_value = "100",
-            mud_noise = "-6 + 12 * gleba_mud_basins"
+            mud_noise = "-6 + 12 * terrapalus_mud_basins"
         }
     },
-    -- From Gleba's implementation
+    -- From Gleba's implementation, under an own name: the vanilla gleba_mud_basins shapes Gleba itself
     {
         type = "noise-expression",
-        name = "gleba_mud_basins",
+        name = "terrapalus_mud_basins",
         expression = "1 - abs(multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1000000, octaves = 3, input_scale = 1/" .. mud_basin_scale .. "})"
     },
     {
@@ -519,7 +519,7 @@ data:extend({
     },
     {
         type = "noise-expression",
-        name = "gleba_plants_noise",
+        name = "terrapalus_plants_noise",
         expression = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1000000, octaves = 3, input_scale = 1/" .. elevation_scale .. "}"
     },
     -- Other required expressions for enemy spawning
@@ -589,8 +589,8 @@ function MapGen.terrapalus()
             cliff_elevation = "cliff_elevation_from_elevation",
             ["entity:gleba-spawner:probability"] = "terrapalus_spawner",
             ["entity:gleba-spawner-small:probability"] = "terrapalus_spawner_small",
-            ["entity:yumako-tree:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - gleba_plants_noise) * control:gleba_plants:size)",
-            ["entity:jellystem:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - gleba_plants_noise) * control:gleba_plants:size)",
+            ["entity:yumako-tree:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - terrapalus_plants_noise) * control:gleba_plants:size)",
+            ["entity:jellystem:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - terrapalus_plants_noise) * control:gleba_plants:size)",
         },
         autoplace_controls = {
             ["iron-ore"] = {},
