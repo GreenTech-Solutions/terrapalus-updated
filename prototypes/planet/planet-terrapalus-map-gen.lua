@@ -582,7 +582,7 @@ data:extend({
 })
 
 function MapGen.terrapalus()
-    return {
+    local map_gen_settings = {
         property_expression_names = {
             elevation = "terra_palus_elevation",
             temperature = "terra_palus_temperature",
@@ -699,6 +699,12 @@ function MapGen.terrapalus()
             cliff_elevation_interval = 40
         }
     }
+    -- Optional extras, off by default (startup settings)
+    if settings.startup["terrapalus-uranium-ore"].value then
+        map_gen_settings.autoplace_controls["uranium-ore"] = {}
+        map_gen_settings.autoplace_settings["entity"].settings["uranium-ore"] = {}
+    end
+    return map_gen_settings
 end
 
 return MapGen

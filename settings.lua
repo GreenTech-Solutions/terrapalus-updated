@@ -387,5 +387,12 @@ data:extend({
         minimum_value = 0,
         maximum_value = 1.0,
         order = "h-h"
+    },
+    {
+        type = "bool-setting",
+        name = "terrapalus-uranium-ore",
+        setting_type = "startup",
+        default_value = false,
+        order = "i-a"
     }
 })
