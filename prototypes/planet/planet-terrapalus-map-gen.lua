@@ -31,6 +31,9 @@ local spawner_frequency = settings.startup["terrapalus-spawner-frequency"].value
 local spawner_size = settings.startup["terrapalus-spawner-size"].value
 local small_spawner_frequency = settings.startup["terrapalus-small-spawner-frequency"].value
 local small_spawner_size = settings.startup["terrapalus-small-spawner-size"].value
+-- The spawner settings scale the spawners' probability relative to their defaults, so the defaults generate as before
+local spawner_factor = (spawner_frequency / 0.4) * (spawner_size / 0.7)
+local small_spawner_factor = (small_spawner_frequency / 5.6) * (small_spawner_size / 1.8)
 local enemy_safe_zone_radius = settings.startup["terrapalus-enemy-safe-zone-radius"].value
 
 
@@ -163,7 +166,7 @@ data:extend({
     },
     {
         type = "noise-expression",
-        name = "terrapalus_starting_angle",
+        name = "terra_palus_starting_angle",
         expression = "map_seed_normalized * 3600"
     },
     {
@@ -235,28 +238,28 @@ data:extend({
         name = "terrapalus_fertile_soil",
         expression = "max(terrapalus_fertile_guaranteed, \z
                         terrapalus_fertile_random) * \z
-                     gleba_select(terrapalus_elevation, 2, 40, 1, 0, 1) * \z
-                     gleba_select(terrapalus_moisture, 0.4, 0.8, 0.1, 0, 1)"
+                     gleba_select(terra_palus_elevation, 2, 40, 1, 0, 1) * \z
+                     gleba_select(terra_palus_moisture, 0.4, 0.8, 0.1, 0, 1)"
     },
     {
         type = "noise-expression",
         name = "terrapalus_lowland",
-        expression = "gleba_select(terrapalus_elevation, 2, terrapalus_lowland_size_setting, 0.5, 0, 1)"
+        expression = "gleba_select(terra_palus_elevation, 2, terrapalus_lowland_size_setting, 0.5, 0, 1)"
     },
     {
         type = "noise-expression",
         name = "terrapalus_lowland_aux_1",
-        expression = "terrapalus_lowland * terrapalus_select(terrapalus_aux, 0, 0.3, 0.005, 0, 1)"
+        expression = "terrapalus_lowland * terrapalus_select(terra_palus_aux, 0, 0.3, 0.005, 0, 1)"
     },
     {
         type = "noise-expression",
         name = "terrapalus_lowland_aux_2",
-        expression = "terrapalus_lowland * terrapalus_select(terrapalus_aux, 0.3, 0.7, 0.005, 0, 1)"
+        expression = "terrapalus_lowland * terrapalus_select(terra_palus_aux, 0.3, 0.7, 0.005, 0, 1)"
     },
     {
         type = "noise-expression",
         name = "terrapalus_lowland_aux_3",
-        expression = "terrapalus_lowland * terrapalus_select(terrapalus_aux, 0.7, 1, 0.005, 0, 1)"
+        expression = "terrapalus_lowland * terrapalus_select(terra_palus_aux, 0.7, 1, 0.005, 0, 1)"
     },
     -- Add the select function if you don't have it
     {
@@ -317,7 +320,7 @@ data:extend({
     },
     {
         type = "noise-expression",
-        name = "terrapalus_fertile_spots_coastal_raw",
+        name = "terra_palus_fertile_spots_coastal_raw",
         expression = "spot_noise{x = x + wobble_noise_x * 15,\z
                                 y = y + wobble_noise_y * 15,\z
                                 seed0 = map_seed,\z
@@ -344,33 +347,33 @@ data:extend({
         name = "terrapalus_starting_lowlands",
         expression = "max(starting_lowland_yumako, starting_lowland_jellynut)",
         local_expressions = {
-            starting_lowland_yumako = "spot_at_angle{angle = terrapalus_starting_angle + 235 * terrapalus_starting_direction,\z
-                                               distance = " .. starting_distance .. " * terrapalus_starting_area_multiplier,\z
-                                               radius = " .. starting_radius .. " * terrapalus_starting_area_multiplier,\z
-                                               x_distortion = terrapalus_wobble_x * 15,\z
-                                               y_distortion = terrapalus_wobble_x * 15}",
-            starting_lowland_jellynut = "spot_at_angle{angle = terrapalus_starting_angle + 65 * terrapalus_starting_direction,\z
-                                                 distance = " .. starting_distance .. " * terrapalus_starting_area_multiplier,\z
-                                                 radius = " .. starting_radius .. " * terrapalus_starting_area_multiplier,\z
-                                                 x_distortion = terrapalus_wobble_x * 15,\z
-                                                 y_distortion = terrapalus_wobble_x * 15}"
+            starting_lowland_yumako = "spot_at_angle{angle = terra_palus_starting_angle + 235 * terrapalus_starting_direction,\z
+                                               distance = " .. starting_distance .. " * terra_palus_starting_area_multiplier,\z
+                                               radius = " .. starting_radius .. " * terra_palus_starting_area_multiplier,\z
+                                               x_distortion = terra_palus_wobble_x * 15,\z
+                                               y_distortion = terra_palus_wobble_x * 15}",
+            starting_lowland_jellynut = "spot_at_angle{angle = terra_palus_starting_angle + 65 * terrapalus_starting_direction,\z
+                                                 distance = " .. starting_distance .. " * terra_palus_starting_area_multiplier,\z
+                                                 radius = " .. starting_radius .. " * terra_palus_starting_area_multiplier,\z
+                                                 x_distortion = terra_palus_wobble_x * 15,\z
+                                                 y_distortion = terra_palus_wobble_x * 15}"
         }
     },
     {
         type = "noise-expression",
-        name = "terrapalus_starting_fertile",
+        name = "terra_palus_starting_fertile",
         expression = "max(starting_lowland_yumako, starting_lowland_jellynut)",
         local_expressions = {
-            starting_lowland_yumako = "spot_at_angle{angle = terrapalus_starting_angle + 235 * terrapalus_starting_direction,\z
-                                               distance = " .. (starting_distance + 10) .. " * terrapalus_starting_area_multiplier,\z
-                                               radius = " .. starting_fertile_radius .. " * terrapalus_starting_area_multiplier,\z
-                                               x_distortion = terrapalus_wobble_x * 15,\z
-                                               y_distortion = terrapalus_wobble_x * 15}",
-            starting_lowland_jellynut = "spot_at_angle{angle = terrapalus_starting_angle + 65 * terrapalus_starting_direction,\z
-                                                 distance = " .. (starting_distance + 10) .. " * terrapalus_starting_area_multiplier,\z
-                                                 radius = " .. starting_fertile_radius .. " * terrapalus_starting_area_multiplier,\z
-                                                 x_distortion = terrapalus_wobble_x * 15,\z
-                                                 y_distortion = terrapalus_wobble_x * 15}"
+            starting_lowland_yumako = "spot_at_angle{angle = terra_palus_starting_angle + 235 * terrapalus_starting_direction,\z
+                                               distance = " .. (starting_distance + 10) .. " * terra_palus_starting_area_multiplier,\z
+                                               radius = " .. starting_fertile_radius .. " * terra_palus_starting_area_multiplier,\z
+                                               x_distortion = terra_palus_wobble_x * 15,\z
+                                               y_distortion = terra_palus_wobble_x * 15}",
+            starting_lowland_jellynut = "spot_at_angle{angle = terra_palus_starting_angle + 65 * terrapalus_starting_direction,\z
+                                                 distance = " .. (starting_distance + 10) .. " * terra_palus_starting_area_multiplier,\z
+                                                 radius = " .. starting_fertile_radius .. " * terra_palus_starting_area_multiplier,\z
+                                                 x_distortion = terra_palus_wobble_x * 15,\z
+                                                 y_distortion = terra_palus_wobble_x * 15}"
         }
     },
        -- Autoplace controls for enemies spawners
@@ -391,43 +394,43 @@ data:extend({
     -- Basic control expressions
     {
         type = "noise-expression",
-        name = "terrapalus_segmentation_multiplier",
+        name = "terra_palus_segmentation_multiplier",
         expression = 1
     },
     -- Basic terrain noise for mixing biomes
     {
         type = "noise-expression",
-        name = "terrapalus_biome_mix",
+        name = "terra_palus_biome_mix",
         expression = "clamp(multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1, octaves = 3, input_scale = 1/" .. biome_scale .. "}, 0, 1)"
     },
     -- Moisture based on Gleba's implementation
     {
         type = "noise-expression",
-        name = "terrapalus_moisture",
-        expression = "clamp(1.2 - min(0.2 + (terrapalus_elevation / 100), 0.4 + (terrapalus_elevation - 15) / 300), 0, 1)"
+        name = "terra_palus_moisture",
+        expression = "clamp(1.2 - min(0.2 + (terra_palus_elevation / 100), 0.4 + (terra_palus_elevation - 15) / 300), 0, 1)"
     },
     -- Elevation mixing Nauvis and Gleba patterns
     {
         type = "noise-expression",
-        name = "terrapalus_elevation",
-        expression = "lerp(nauvis_style, gleba_style, terrapalus_biome_mix)",
+        name = "terra_palus_elevation",
+        expression = "lerp(nauvis_style, gleba_style, terra_palus_biome_mix)",
         local_expressions = {
             nauvis_style = "80 + 40 * basic_noise",
             gleba_style = "clamp(elevation_value * 0.4 + mud_noise, -1.0, 15.9) + 0.2 * mud_noise",
             basic_noise = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1000000, octaves = 3, input_scale = 1/" .. elevation_scale .. "}",
             elevation_value = "100",
-            mud_noise = "-6 + 12 * gleba_mud_basins"
+            mud_noise = "-6 + 12 * terrapalus_mud_basins"
         }
     },
-    -- From Gleba's implementation
+    -- From Gleba's implementation, under an own name: the vanilla gleba_mud_basins shapes Gleba itself
     {
         type = "noise-expression",
-        name = "gleba_mud_basins",
+        name = "terrapalus_mud_basins",
         expression = "1 - abs(multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1000000, octaves = 3, input_scale = 1/" .. mud_basin_scale .. "})"
     },
     {
         type = "noise-expression",
-        name = "terrapalus_aux",
+        name = "terra_palus_aux",
         expression = "clamp(0.5 + basic_noise, 0, 1)",
         local_expressions = {
             basic_noise = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1, octaves = 3, input_scale = 1/" .. elevation_scale .. "}"
@@ -435,7 +438,7 @@ data:extend({
     },
     {
         type = "noise-expression",
-        name = "terrapalus_temperature",
+        name = "terra_palus_temperature",
         expression = base_temperature .. " + " .. temperature_variance .. " * basic_noise",
         local_expressions = {
             basic_noise = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 2, octaves = 3, input_scale = 1/" .. elevation_scale .. "}"
@@ -444,53 +447,53 @@ data:extend({
         -- Add starting enemies safe zone expression
         {
             type = "noise-expression",
-            name = "terrapalus_starting_enemies_safe",
-            expression = "spot_at_angle{angle = terrapalus_starting_angle + 40,\z
-                                      distance = " .. math.floor(starting_distance * 0.7) .. " * terrapalus_starting_area_multiplier,\z
-                                      radius = " .. enemy_safe_zone_radius .. " * terrapalus_starting_area_multiplier,\z
-                                      x_distortion = 0.1 * terrapalus_starting_area_multiplier * (terrapalus_wobble_x + terrapalus_wobble_large_x),\z
-                                      y_distortion = 0.1 * terrapalus_starting_area_multiplier * (terrapalus_wobble_y + terrapalus_wobble_large_y)}"
+            name = "terra_palus_starting_enemies_safe",
+            expression = "spot_at_angle{angle = terra_palus_starting_angle + 40,\z
+                                      distance = " .. math.floor(starting_distance * 0.7) .. " * terra_palus_starting_area_multiplier,\z
+                                      radius = " .. enemy_safe_zone_radius .. " * terra_palus_starting_area_multiplier,\z
+                                      x_distortion = 0.1 * terra_palus_starting_area_multiplier * (terra_palus_wobble_x + terra_palus_wobble_large_x),\z
+                                      y_distortion = 0.1 * terra_palus_starting_area_multiplier * (terra_palus_wobble_y + terra_palus_wobble_large_y)}"
         },
         {
             type = "noise-expression",
-            name = "terrapalus_starting_angle",
+            name = "terra_palus_starting_angle",
             expression = "map_seed_normalized * 3600"
         },
         {
             type = "noise-expression",
-            name = "terrapalus_wobble_x",
+            name = "terra_palus_wobble_x",
             expression = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 10, octaves = 2, input_scale = 1/8}"
         },
         {
             type = "noise-expression",
-            name = "terrapalus_wobble_y",
+            name = "terra_palus_wobble_y",
             expression = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1010, octaves = 2, input_scale = 1/8}"
         },
         {
             type = "noise-expression",
-            name = "terrapalus_wobble_large_x",
+            name = "terra_palus_wobble_large_x",
             expression = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 20, octaves = 2, input_scale = 1/2}"
         },
         {
             type = "noise-expression",
-            name = "terrapalus_wobble_large_y",
+            name = "terra_palus_wobble_large_y",
             expression = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1020, octaves = 2, input_scale = 1/2}"
         },
 
     -- Enemy base control expressions
     {
         type = "noise-expression",
-        name = "terrapalus_spawner",
-        expression = "max(0.01 * terrapalus_starting_enemies, max(min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terrapalus_fertile_spots_coastal * 5000 - terrapalus_biome_mask_green * 25000)) * (distance > 500 * terrapalus_starting_area_multiplier)) * terrapalus_above_deep_water_mask"
+        name = "terra_palus_spawner",
+        expression = "(max(0.01 * terra_palus_starting_enemies, max(min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terra_palus_fertile_spots_coastal * 5000 - terra_palus_biome_mask_green * 25000)) * (distance > 500 * terra_palus_starting_area_multiplier)) * terra_palus_above_deep_water_mask) * var('control:gleba-spawner:frequency') * var('control:gleba-spawner:size') * " .. spawner_factor
     },
     {
         type = "noise-expression",
-        name = "terrapalus_spawner_small",
-        expression = "max(0.02 * terrapalus_starting_enemies, 0.02 * terrapalus_starting_enemies_safe, min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terrapalus_fertile_spots_coastal * 5000 - terrapalus_biome_mask_green * 25000)) * terrapalus_above_deep_water_mask * (1 - terrapalus_starting_enemies_safe)"
+        name = "terra_palus_spawner_small",
+        expression = "(max(0.02 * terra_palus_starting_enemies, 0.02 * terra_palus_starting_enemies_safe, min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terra_palus_fertile_spots_coastal * 5000 - terra_palus_biome_mask_green * 25000)) * terra_palus_above_deep_water_mask * (1 - terra_palus_starting_enemies_safe)) * var('control:gleba-spawner-small:frequency') * var('control:gleba-spawner-small:size') * " .. small_spawner_factor
     },
     {
         type = "noise-expression",
-        name = "terrapalus_starting_enemies",
+        name = "terra_palus_starting_enemies",
         expression = "spot_noise{x = x + wobble_noise_x * 15,\z
                                 y = y + wobble_noise_y * 15,\z
                                 seed0 = map_seed,\z
@@ -514,43 +517,43 @@ data:extend({
     },
     {
         type = "noise-expression",
-        name = "terrapalus_above_deep_water_mask",
-        expression = "terrapalus_elevation > -10"
+        name = "terra_palus_above_deep_water_mask",
+        expression = "terra_palus_elevation > -10"
     },
     {
         type = "noise-expression",
-        name = "gleba_plants_noise",
+        name = "terrapalus_plants_noise",
         expression = "multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 1000000, octaves = 3, input_scale = 1/" .. elevation_scale .. "}"
     },
     -- Other required expressions for enemy spawning
     {
         type = "noise-expression",
-        name = "terrapalus_biome_mask_green",
-        expression = "terrapalus_aux > 0.375"
+        name = "terra_palus_biome_mask_green",
+        expression = "terra_palus_aux > 0.375"
     },
     {
         type = "noise-expression",
         name = "terrapalus_fertile_solid",
         expression = "2 * abs(multioctave_noise{x = x, y = y, persistence = 0.7, seed0 = map_seed, seed1 = 2000000, octaves = 2, input_scale = 1/16})\z
-                     * terrapalus_fertile_spots_coastal"
+                     * terra_palus_fertile_spots_coastal"
     },
     {
         type = "noise-expression",
         name = "terrapalus_biome_mask_red",
-        expression = "terrapalus_aux < 0.625"
+        expression = "terra_palus_aux < 0.625"
     },
     {
         type = "noise-expression",
-        name = "terrapalus_starting_area_multiplier",
+        name = "terra_palus_starting_area_multiplier",
         expression = tostring(starting_area_multiplier)
     },
     {
         type = "noise-expression",
-        name = "terrapalus_fertile_spots_coastal",
-        expression = "max(min(1, terrapalus_starting_fertile * 4),\z
-                      min(exclude_middle, terrapalus_fertile_spots_coastal_raw) - max(0, -(elevation + 2) / 5) - max(0, (elevation - 10) / 5))",
+        name = "terra_palus_fertile_spots_coastal",
+        expression = "max(min(1, terra_palus_starting_fertile * 4),\z
+                      min(exclude_middle, terra_palus_fertile_spots_coastal_raw) - max(0, -(elevation + 2) / 5) - max(0, (elevation - 10) / 5))",
         local_expressions = {
-            exclude_middle = "(distance / terrapalus_starting_area_multiplier / 150) - 2.2"
+            exclude_middle = "(distance / terra_palus_starting_area_multiplier / 150) - 2.2"
         }
     },
     {
@@ -579,18 +582,16 @@ data:extend({
 })
 
 function MapGen.terrapalus()
-    return {
+    local map_gen_settings = {
         property_expression_names = {
-            elevation = "terrapalus_elevation",
-            temperature = "terrapalus_temperature",
-            moisture = "terrapalus_moisture",
-            aux = "terrapalus_aux",
+            elevation = "terra_palus_elevation",
+            temperature = "terra_palus_temperature",
+            moisture = "terra_palus_moisture",
+            aux = "terra_palus_aux",
             cliffiness = "cliffiness_basic",
             cliff_elevation = "cliff_elevation_from_elevation",
-            ["entity:gleba-spawner:probability"] = "terrapalus_spawner",
-            ["entity:gleba-spawner-small:probability"] = "terrapalus_spawner_small",
-            ["entity:yumako-tree:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - gleba_plants_noise) * control:gleba_plants:size)",
-            ["entity:jellystem:probability"] = "min(0.4, 0.6 * terrapalus_fertile_soil * (1 - gleba_plants_noise) * control:gleba_plants:size)",
+            ["entity:gleba-spawner:probability"] = "terra_palus_spawner",
+            ["entity:gleba-spawner-small:probability"] = "terra_palus_spawner_small",
         },
         autoplace_controls = {
             ["iron-ore"] = {},
@@ -605,6 +606,9 @@ function MapGen.terrapalus()
                 size = lowland_size / 10
             },
             ["enemy-base"] = {},
+            -- the pentapod spawners' own control, as on Gleba: listing the spawners in autoplace_settings instead made
+            -- the planet fail to load when another mod removed their autoplace
+            ["gleba_enemy_base"] = {},
             ["gleba-spawner"] = {},
             ["gleba-spawner-small"] = {}
         },
@@ -686,16 +690,6 @@ function MapGen.terrapalus()
                         frequency = 0.4,
                         size = 0.8
                     },
-                    ["gleba-spawner"] = {
-                        frequency = spawner_frequency,
-                        size = spawner_size,
-                        richness = 1.0
-                    },
-                    ["gleba-spawner-small"] = {
-                        frequency = small_spawner_frequency,
-                        size = small_spawner_size,
-                        richness = 2.0
-                    },
                 }
             }
         },
@@ -705,6 +699,16 @@ function MapGen.terrapalus()
             cliff_elevation_interval = 40
         }
     }
+    -- Optional extras, off by default (startup settings)
+    if settings.startup["terrapalus-uranium-ore"].value then
+        map_gen_settings.autoplace_controls["uranium-ore"] = {}
+        map_gen_settings.autoplace_settings["entity"].settings["uranium-ore"] = {}
+    end
+    if settings.startup["terrapalus-stromatolites"].value then
+        map_gen_settings.autoplace_settings["entity"].settings["iron-stromatolite"] = {}
+        map_gen_settings.autoplace_settings["entity"].settings["copper-stromatolite"] = {}
+    end
+    return map_gen_settings
 end
 
 return MapGen

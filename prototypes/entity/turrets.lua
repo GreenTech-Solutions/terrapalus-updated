@@ -3,6 +3,11 @@ local sounds = require("__base__/prototypes/entity/sounds")
 local hit_effects = require ("__base__/prototypes/entity/hit-effects")
 local util = require('util')
 
+-- Another mod can replace the global circuit_connector_definitions without the vanilla entries: fall back to the
+-- connector of the vanilla laser turret
+local laser_turret_circuit_connector = circuit_connector_definitions and circuit_connector_definitions["laser-turret"]
+    or data.raw["electric-turret"]["laser-turret"] and data.raw["electric-turret"]["laser-turret"].circuit_connector
+
 
 data:extend({
     {
@@ -327,7 +332,7 @@ function laser_turret_extension(inputs)
         selection_box = {{-1, -1}, {1, 1}},
         drawing_box_vertical_extension = 0.3,
         damaged_trigger_effect = hit_effects.entity(),
-        circuit_connector = circuit_connector_definitions["laser-turret"],
+        circuit_connector = laser_turret_circuit_connector,
         circuit_wire_max_distance = default_circuit_wire_max_distance,
         rotation_speed = 0.01,
         preparing_speed = 0.05,
@@ -618,7 +623,7 @@ data:extend({
       selection_box = {{-1, -1}, {1, 1}},
       drawing_box_vertical_extension = 0.3,
       damaged_trigger_effect = hit_effects.entity(),
-      circuit_connector = circuit_connector_definitions["laser-turret"],
+      circuit_connector = laser_turret_circuit_connector,
       circuit_wire_max_distance = default_circuit_wire_max_distance,
       rotation_speed = 0.02,
       preparing_speed = 0.08,
@@ -860,7 +865,7 @@ data:extend({
       selection_box = {{-1, -1}, {1, 1}},
       drawing_box_vertical_extension = 0.3,
       damaged_trigger_effect = hit_effects.entity(),
-      circuit_connector = circuit_connector_definitions["laser-turret"],
+      circuit_connector = laser_turret_circuit_connector,
       circuit_wire_max_distance = default_circuit_wire_max_distance,
       rotation_speed = 0.01,
       preparing_speed = 0.05,
@@ -1116,7 +1121,7 @@ data:extend({
       selection_box = {{-1, -1}, {1, 1}},
       drawing_box_vertical_extension = 0.3,
       damaged_trigger_effect = hit_effects.entity(),
-      circuit_connector = circuit_connector_definitions["laser-turret"],
+      circuit_connector = laser_turret_circuit_connector,
       circuit_wire_max_distance = default_circuit_wire_max_distance,
       rotation_speed = 0.01,
       preparing_speed = 0.05,
@@ -1242,7 +1247,7 @@ data:extend({
       selection_box = {{-1, -1}, {1, 1}},
       drawing_box_vertical_extension = 0.3,
       damaged_trigger_effect = hit_effects.entity(),
-      circuit_connector = circuit_connector_definitions["laser-turret"],
+      circuit_connector = laser_turret_circuit_connector,
       circuit_wire_max_distance = default_circuit_wire_max_distance,
       rotation_speed = 0.01,
       preparing_speed = 0.05,
@@ -1368,7 +1373,7 @@ data:extend({
       selection_box = {{-1, -1}, {1, 1}},
       drawing_box_vertical_extension = 0.3,
       damaged_trigger_effect = hit_effects.entity(),
-      circuit_connector = circuit_connector_definitions["laser-turret"],
+      circuit_connector = laser_turret_circuit_connector,
       circuit_wire_max_distance = default_circuit_wire_max_distance,
       rotation_speed = 0.01,
       preparing_speed = 0.05,

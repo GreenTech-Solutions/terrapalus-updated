@@ -26,8 +26,7 @@
     ],
     "globals": [
       "PlanetsLib",
-      "make_resource",
-      "stone_driving_sound"
+      "make_resource"
     ]
   }
 }

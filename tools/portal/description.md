@@ -33,6 +33,8 @@ Terra Palus is a small swamp-moon that orbits Gleba; you can unlock access to Te
     - UV turrets that damage enemies and cause them to flee
     - All recipes rebalanced and support productivity modules
   - Optional PlanetsLib support - Proper orbit visualization around Gleba
+  - Optional uranium ore and stromatolites - Startup settings, off by default
+  - Works with Resource Spawner Overhaul and Tenebris Prime
 
 ## Localisation
 
@@ -42,6 +44,7 @@ Terra Palus is a small swamp-moon that orbits Gleba; you can unlock access to Te
   - French
   - Hindi
   - Mandarin Chinese
+  - Polish (thanks S3BA!)
 
 # Changes
 

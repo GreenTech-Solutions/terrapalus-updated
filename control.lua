@@ -61,9 +61,8 @@ local VALID_ENEMY_TYPES = {
 }
 
 -- Enemy Race Manager (ERM) compatibility
--- Cache for enemy forces list (refreshed periodically)
-local cached_enemy_forces = nil
-local enemy_forces_cache_tick = 0
+-- Cache for enemy forces list (refreshed periodically); kept in storage so that every peer in multiplayer, including
+-- one that just joined, refreshes it on the same tick
 local ENEMY_FORCES_CACHE_DURATION = 300  -- Refresh every 5 seconds
 
 -- Check if a force is an enemy force (uses ERM API if available)
@@ -79,8 +78,8 @@ end
 -- Get list of all enemy forces for find_entities_filtered
 local function get_enemy_forces()
     -- Return cached value if still valid
-    if cached_enemy_forces and game.tick - enemy_forces_cache_tick < ENEMY_FORCES_CACHE_DURATION then
-        return cached_enemy_forces
+    if storage.enemy_forces and game.tick - storage.enemy_forces_tick < ENEMY_FORCES_CACHE_DURATION then
+        return storage.enemy_forces
     end
 
     local forces = {}
@@ -101,8 +100,8 @@ local function get_enemy_forces()
     end
 
     -- Cache the result
-    cached_enemy_forces = forces
-    enemy_forces_cache_tick = game.tick
+    storage.enemy_forces = forces
+    storage.enemy_forces_tick = game.tick
     return forces
 end
 
@@ -443,12 +442,15 @@ script.on_event(defines.events.on_player_changed_surface, function(event)
     end
 end)
 
--- Event handler for player joining the game
+-- Event handler for player joining the game; one handler per event, a second on_event would replace this one
 script.on_event(defines.events.on_player_joined_game, function(event)
     local player = game.get_player(event.player_index)
     if player then
         handle_night_vision(player)
     end
+    -- Trigger sticker refresh when any player joins (including on game load)
+    -- This is multiplayer-safe because on_player_joined_game is a synchronized game event
+    storage.pending_sticker_refresh = true
 end)
 
 -- Event handler for when equipment is placed in the armor grid
@@ -471,8 +473,8 @@ script.on_event(defines.events.on_surface_created, function(event)
 end)
 
 -- Add lamp/spotlight/charging station to global list when built
----@param event EventData.on_built_entity|EventData.on_robot_built_entity
-script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, function(event)
+---@param event EventData.on_built_entity|EventData.on_robot_built_entity|EventData.script_raised_built|EventData.script_raised_revive
+script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity, defines.events.script_raised_built, defines.events.script_raised_revive}, function(event)
     local entity = event.entity
     if is_inhibitor_lamp(entity.name) then
         initialize_storage()
@@ -493,8 +495,8 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
 end)
 
 -- Remove lamp/spotlight/charging station from global list when destroyed
----@param event EventData.on_entity_died|EventData.on_player_mined_entity|EventData.on_robot_mined_entity
-script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity}, function(event)
+---@param event EventData.on_entity_died|EventData.on_player_mined_entity|EventData.on_robot_mined_entity|EventData.script_raised_destroy
+script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.script_raised_destroy}, function(event)
     local entity = event.entity
     if is_inhibitor_lamp(entity.name) then
         initialize_storage()
@@ -557,18 +559,27 @@ script.on_init(function()
 
     -- Populate the global lamp list with existing lamps
     rescan_all_lamps()
+
+    -- A save switching from the original Terra Palus keeps the enemies it froze disabled, but not its lists of them,
+    -- so nothing would ever thaw them: track them as frozen, those out of a lamp's range then thaw as usual
+    for _, surface in pairs(game.surfaces) do
+        for _, enemy in pairs(surface.find_entities_filtered({force = get_enemy_forces(), type = {"unit", "spider-unit"}})) do
+            if enemy.disabled_by_script and not storage.frozen_entities[enemy.unit_number] then
+                storage.frozen_entities[enemy.unit_number] = {
+                    entity = enemy,
+                    freeze_start_tick = game.tick,
+                    is_freezing = false
+                }
+                table.insert(storage.frozen_entity_keys, enemy.unit_number)
+            end
+        end
+    end
 end)
 
 -- Handle loading the script
 script.on_load(function()
     -- Event handlers are automatically re-registered, no action needed
     -- Note: Cannot modify storage here, sticker refresh is triggered by on_player_joined_game
-end)
-
--- Trigger sticker refresh when any player joins (including on game load)
--- This is multiplayer-safe because on_player_joined_game is a synchronized game event
-script.on_event(defines.events.on_player_joined_game, function(event)
-    storage.pending_sticker_refresh = true
 end)
 
 -- Process a subset of lamps each tick

@@ -4,7 +4,7 @@
 -- prototypes/entity/resources.lua
 
 local resource_autoplace = require("resource-autoplace")
-local sounds = require("__base__.prototypes.entity.sounds")
+local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 resource_autoplace.initialize_patch_set("palusium-ore", false)
 
 data:extend({
@@ -17,8 +17,8 @@ data:extend({
     order = "x-y-z",  -- Set an order that’s distinct from uranium for inventory sorting
     tree_removal_probability = 0.7,
     tree_removal_max_distance = 32 * 32,
-    walking_sound = sounds.ore,
-    driving_sound = stone_driving_sound,
+    walking_sound = tile_sounds.walking.ore,
+    driving_sound = tile_sounds.driving.stone,
     minable = {
       mining_particle = "stone-particle",
       mining_time = 0.1,

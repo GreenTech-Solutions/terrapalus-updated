@@ -356,7 +356,7 @@ data:extend({
         type = "double-setting",
         name = "terrapalus-cloud-opacity",
         setting_type = "startup",
-        default_value = 1.0,
+        default_value = 0.7,
         minimum_value = 0,
         maximum_value = 1.0,
         order = "h-e"
@@ -387,5 +387,19 @@ data:extend({
         minimum_value = 0,
         maximum_value = 1.0,
         order = "h-h"
+    },
+    {
+        type = "bool-setting",
+        name = "terrapalus-uranium-ore",
+        setting_type = "startup",
+        default_value = false,
+        order = "i-a"
+    },
+    {
+        type = "bool-setting",
+        name = "terrapalus-stromatolites",
+        setting_type = "startup",
+        default_value = false,
+        order = "i-b"
     }
 })
