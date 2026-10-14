@@ -1,3 +1,23 @@
+# terrapalus-updated
+
+> Fork of [Terra Palus](https://mods.factorio.com/mod/terrapalus) by Lukah, updated for Factorio 2.1 and published as
+> `terrapalus-updated`. All credit for the mod goes to Lukah. The original has no public repository: `master` up to
+> the tag `v0.2.8` is release 0.2.8 from the mod portal as it is.
+
+The fork changes what 2.1 needs and fixes bugs; the list is in [changelog.txt](changelog.txt). Balance stays as the
+original has it.
+
+## Switching a save from Terra Palus
+
+Remove Terra Palus and install terrapalus-updated before you load the save: the two do not load together. Prototype and
+setting names are unchanged, so the moon, its buildings, items and research stay.
+
+## License
+
+MIT, as the original: [LICENSE](LICENSE). The original README follows.
+
+---
+
 # Terra Palus
 A dark satellite locked in eternal twilight, Terra Palus is locked in orbit of the verdant world of Gleba; a peculiar dance that keeps it perpetually shrouded from direct sunlight. This dim, foreboding moon presents unique challenges to engineering operations, as conventional solar power systems prove useless in its perpetual gloom.
 

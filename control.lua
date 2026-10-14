@@ -373,7 +373,7 @@ local function on_entity_damaged(event)
         command_enemy_to_flee(enemy, source)
     end
 
-    -- Handle spotlight freeze (30 seconds, entity.active = false)
+    -- Handle spotlight freeze (30 seconds, entity.disabled_by_script = true)
     if is_spotlight then
         local unit_number = enemy.unit_number
         if not unit_number then return end
@@ -392,7 +392,7 @@ local function on_entity_damaged(event)
             source.shooting_target = nil
         else
             -- Freeze the enemy
-            enemy.active = false
+            enemy.disabled_by_script = true
             spotlight_frozen[unit_number] = {
                 entity = enemy,
                 thaw_tick = game.tick + SPOTLIGHT_FREEZE_DURATION
@@ -471,8 +471,9 @@ script.on_event(defines.events.on_surface_created, function(event)
 end)
 
 -- Add lamp/spotlight/charging station to global list when built
+---@param event EventData.on_built_entity|EventData.on_robot_built_entity
 script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, function(event)
-    local entity = event.created_entity or event.entity
+    local entity = event.entity
     if is_inhibitor_lamp(entity.name) then
         initialize_storage()
         table.insert(storage.inhibitor_lamps, entity)
@@ -492,6 +493,7 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
 end)
 
 -- Remove lamp/spotlight/charging station from global list when destroyed
+---@param event EventData.on_entity_died|EventData.on_player_mined_entity|EventData.on_robot_mined_entity
 script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity}, function(event)
     local entity = event.entity
     if is_inhibitor_lamp(entity.name) then
@@ -616,7 +618,7 @@ local function process_lamps()
                         local freeze_data = storage.frozen_entities[enemy.unit_number]
                         local elapsed_ticks = game.tick - freeze_data.freeze_start_tick
                         if freeze_data.is_freezing and elapsed_ticks >= FREEZE_DURATION then
-                            enemy.active = false
+                            enemy.disabled_by_script = true
                             freeze_data.is_freezing = false
                         end
                     end
@@ -663,7 +665,7 @@ local function update_thawing_entities()
             local elapsed_ticks = game.tick - thaw_data.thaw_start_tick
             if elapsed_ticks > THAW_DURATION then
                 -- Fully thawed; restore entity to normal
-                entity.active = true
+                entity.disabled_by_script = false
                 storage.thawing_entities[unit_number] = nil
             elseif elapsed_ticks == 0 then
                 -- Apply thawing sticker once when thawing starts
@@ -685,7 +687,7 @@ local function update_spotlight_frozen()
         if entity and entity.valid then
             if current_tick >= freeze_data.thaw_tick then
                 -- Thaw the entity
-                entity.active = true
+                entity.disabled_by_script = false
                 storage.spotlight_frozen[unit_number] = nil
             end
         else
@@ -748,7 +750,7 @@ local function manage_spotlight_targeting()
 
             if closest_enemy then
                 -- There are unfrozen enemies - enable turret
-                spotlight.active = true
+                spotlight.disabled_by_script = false
 
                 -- Set target if: no target, invalid target, or current target is frozen
                 local current_target = spotlight.shooting_target
@@ -761,11 +763,11 @@ local function manage_spotlight_targeting()
                 end
             elseif has_frozen then
                 -- All enemies are frozen - disable turret completely
-                spotlight.active = false
+                spotlight.disabled_by_script = true
                 spotlight.shooting_target = nil
             else
                 -- No enemies - keep turret active and ready
-                spotlight.active = true
+                spotlight.disabled_by_script = false
             end
         elseif spotlight and not spotlight.valid then
             -- Mark invalid for cleanup
@@ -843,7 +845,7 @@ local function process_frozen_entities()
                         thaw_start_tick = game.tick
                     }
                     storage.frozen_entities[unit_number] = nil
-                    entity.active = true  -- Reactivate for gradual thaw
+                    entity.disabled_by_script = false  -- Reactivate for gradual thaw
                     apply_thawing_sticker(entity)
                     table.insert(keys_to_remove, i)
                 end
@@ -1004,7 +1006,7 @@ local function process_uv_personal_shields()
                             local shield_data = storage.shield_frozen[unit_number]
                             if not shield_data then
                                 -- Not frozen - freeze the enemy
-                                enemy.active = false
+                                enemy.disabled_by_script = true
                                 apply_frozen_sticker(enemy)
 
                                 -- Track the freeze
@@ -1046,7 +1048,7 @@ local function update_shield_frozen()
             table.insert(to_remove, unit_number)
         elseif current_tick >= data.freeze_until then
             -- Freeze expired - unfreeze
-            entity.active = true
+            entity.disabled_by_script = false
             table.insert(to_remove, unit_number)
         end
     end

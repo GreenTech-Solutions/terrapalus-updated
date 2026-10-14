@@ -6,8 +6,8 @@ if mods["PlanetsLib"] then
     local orbit_config = {
         distance = 1.89,
         orientation = 0.125,
-        sprite_file = "__terrapalus__/graphics/terrapalus-orbit.png",
-        sprite_size = 500
+        sprite_file = "__terrapalus-updated__/graphics/terrapalus-orbit.png",
+        sprite_size = 387
     }
 
     PlanetsLib:update({

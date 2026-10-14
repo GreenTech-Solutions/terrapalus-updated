@@ -7,7 +7,7 @@ data:extend({
         type = "active-defense-equipment",
         name = "uv-defense-turret",
         sprite = {
-            filename = "__terrapalus__/graphics/equipment/personal-uv-defense-equipment.png",
+            filename = "__terrapalus-updated__/graphics/equipment/personal-uv-defense-equipment.png",
             width = 128,
             height = 128,
             priority = "medium",

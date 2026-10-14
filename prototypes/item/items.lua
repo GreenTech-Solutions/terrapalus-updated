@@ -5,7 +5,7 @@ data:extend({
     {
         type = "item",
         name = "inhibitor-lamp",
-        icon = "__terrapalus__/graphics/icons/inhibitor-lamp.png",
+        icon = "__terrapalus-updated__/graphics/icons/inhibitor-lamp.png",
         icon_size = 64,
         icon_mipmaps = 4,
         subgroup = "circuit-network",
@@ -21,7 +21,7 @@ data:extend({
     {
         type = "item",
         name = "inhibitor-lamp-mk2",
-        icon = "__terrapalus__/graphics/icons/inhibitor-lamp.png",
+        icon = "__terrapalus-updated__/graphics/icons/inhibitor-lamp.png",
         icon_size = 64,
         icon_mipmaps = 4,
         subgroup = "circuit-network",
@@ -37,7 +37,7 @@ data:extend({
     {
         type = "item",
         name = "inhibitor-lamp-mk3",
-        icon = "__terrapalus__/graphics/icons/inhibitor-lamp.png",
+        icon = "__terrapalus-updated__/graphics/icons/inhibitor-lamp.png",
         icon_size = 64,
         icon_mipmaps = 4,
         subgroup = "circuit-network",
@@ -53,7 +53,7 @@ data:extend({
     {
         type = "item",
         name = "inhibitor-lamp-damage",
-        icon = "__terrapalus__/graphics/icons/inhibitor-lamp.png",
+        icon = "__terrapalus-updated__/graphics/icons/inhibitor-lamp.png",
         icon_size = 64,
         icon_mipmaps = 4,
         subgroup = "circuit-network",
@@ -69,12 +69,12 @@ data:extend({
     {
         type = "item",
         name = "palusium-ore",
-        icon = "__terrapalus__/graphics/icons/palusium-ore.png", 
+        icon = "__terrapalus-updated__/graphics/icons/palusium-ore.png", 
         icon_size = 64,
         subgroup = "raw-resource",
         order = "b[palusium-ore]",
         stack_size = 50,
-        fuel_category = "chemical",
+        fuel_categories = {"chemical"},
         fuel_value = "25kJ",
         inventory_move_sound = item_sounds.resource_inventory_move,
         pick_sound = item_sounds.resource_inventory_pickup,
@@ -84,7 +84,7 @@ data:extend({
     {
         type = "item",
         name = "palusium-plate",
-        icon = "__terrapalus__/graphics/icons/palusium-plate.png",  
+        icon = "__terrapalus-updated__/graphics/icons/palusium-plate.png",  
         icon_size = 64,
         subgroup = "intermediate-product",
         order = "d[palusium-plate]",
@@ -94,7 +94,7 @@ data:extend({
     {
         type = "item",
         name = "palusium-powder",
-        icon = "__terrapalus__/graphics/icons/palusium-powder.png", 
+        icon = "__terrapalus-updated__/graphics/icons/palusium-powder.png", 
         icon_size = 64,
         subgroup = "intermediate-product",
         order = "d[palusium-powder]",
@@ -104,7 +104,7 @@ data:extend({
     {
         type = "item",
         name = "palusium-crystal",
-        icon = "__terrapalus__/graphics/icons/palusium-crystal.png", 
+        icon = "__terrapalus-updated__/graphics/icons/palusium-crystal.png", 
         icon_size = 64,
         subgroup = "intermediate-product",
         order = "d[palusium-powder]",
@@ -193,7 +193,7 @@ data:extend({
     -- {
     --     type = "item",
     --     name = "uv-stabilizer",
-    --     icon = "__terrapalus__/graphics/entity/uv-stabilizer/quantum-stabilizer-hr-animation-1.png", -- Set an image as the item icon
+    --     icon = "__terrapalus-updated__/graphics/entity/uv-stabilizer/quantum-stabilizer-hr-animation-1.png", -- Set an image as the item icon
     --     icon_size = 64,
     --     subgroup = "production-machine",
     --     order = "b[uv-stabilizer]",
@@ -205,7 +205,7 @@ data:extend({
     {
         type = "capsule",
         name = "ultravium-battery",
-        icon = "__terrapalus__/graphics/icons/uv-battery.png",
+        icon = "__terrapalus-updated__/graphics/icons/uv-battery.png",
         icon_size = 64,
         subgroup = "capsule",
         order = "z[ultravium]-a[battery]",
@@ -238,7 +238,7 @@ data:extend({
     {
         type = "capsule",
         name = "ultravium-battery-pack",
-        icon = "__terrapalus__/graphics/icons/uv-battery.png",
+        icon = "__terrapalus-updated__/graphics/icons/uv-battery.png",
         icon_size = 64,
         subgroup = "capsule",
         order = "z[ultravium]-b[battery-pack]",
@@ -271,7 +271,7 @@ data:extend({
     {
         type = "capsule",
         name = "ultravium-power-cell",
-        icon = "__terrapalus__/graphics/icons/uv-battery.png",
+        icon = "__terrapalus-updated__/graphics/icons/uv-battery.png",
         icon_size = 64,
         subgroup = "capsule",
         order = "z[ultravium]-c[power-cell]",
@@ -350,7 +350,7 @@ data:extend({
     {
         type = "item",
         name = "uv-defense-turret",
-        icon = "__terrapalus__/graphics/icons/personal-uv-defense.png",
+        icon = "__terrapalus-updated__/graphics/icons/personal-uv-defense.png",
         icon_size = 64,
         subgroup = "military-equipment",
         order = "d[active-defense]-b[uv-defense-turret]",
