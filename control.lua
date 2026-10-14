@@ -443,12 +443,15 @@ script.on_event(defines.events.on_player_changed_surface, function(event)
     end
 end)
 
--- Event handler for player joining the game
+-- Event handler for player joining the game; one handler per event, a second on_event would replace this one
 script.on_event(defines.events.on_player_joined_game, function(event)
     local player = game.get_player(event.player_index)
     if player then
         handle_night_vision(player)
     end
+    -- Trigger sticker refresh when any player joins (including on game load)
+    -- This is multiplayer-safe because on_player_joined_game is a synchronized game event
+    storage.pending_sticker_refresh = true
 end)
 
 -- Event handler for when equipment is placed in the armor grid
@@ -578,12 +581,6 @@ end)
 script.on_load(function()
     -- Event handlers are automatically re-registered, no action needed
     -- Note: Cannot modify storage here, sticker refresh is triggered by on_player_joined_game
-end)
-
--- Trigger sticker refresh when any player joins (including on game load)
--- This is multiplayer-safe because on_player_joined_game is a synchronized game event
-script.on_event(defines.events.on_player_joined_game, function(event)
-    storage.pending_sticker_refresh = true
 end)
 
 -- Process a subset of lamps each tick
