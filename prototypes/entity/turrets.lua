@@ -207,7 +207,7 @@ data:extend({
 function laser_turret_extension(inputs)
     return
     {
-      filename = "__terrapalus__/graphics/entity/uv-turret/laser-uv-raising.png",
+      filename = "__terrapalus-updated__/graphics/entity/uv-turret/laser-uv-raising.png",
       priority = "medium",
       width = 130,
       height = 126,
@@ -258,7 +258,7 @@ function laser_turret_extension(inputs)
   function laser_turret_shooting()
     return
     {
-      filename = "__terrapalus__/graphics/entity/uv-turret/laser-uv-shooting.png",
+      filename = "__terrapalus-updated__/graphics/entity/uv-turret/laser-uv-shooting.png",
       line_length = 8,
       width = 126,
       height = 120,

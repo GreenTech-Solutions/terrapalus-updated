@@ -18,7 +18,7 @@ data:extend({
       dying_explosion = "lamp-explosion",
       -- radius_visualisation_picture =
       -- {
-      --   filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+      --   filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
       --   width = 25,
       --   height = 25,
       --   priority = "extra-high-no-scale"
@@ -26,7 +26,7 @@ data:extend({
       radius_visualisation_specification = {
         distance = 18,
         sprite = {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
             width = 12,            -- Replace with the actual width of your sprite image
             height = 12,           -- Replace with the actual height of your sprite image
             scale = 1,             -- Adjust if you want to scale the sprite up or down
@@ -71,7 +71,7 @@ data:extend({
       picture_off = {
         layers = {
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp.png",
             priority = "high",
             width = 83,
             height = 70,
@@ -80,7 +80,7 @@ data:extend({
             tint = {0.9, 0.9, 1}
           },
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
             priority = "high",
             width = 76,
             height = 47,
@@ -91,7 +91,7 @@ data:extend({
         }
       },
       picture_on = {
-        filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-light.png",
+        filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-light.png",
         priority = "high",
         width = 90,
         height = 78,
@@ -134,7 +134,7 @@ data:extend({
       radius_visualisation_specification = {
         distance = 25,
         sprite = {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
             width = 12,
             height = 12,
             scale = 1,
@@ -166,7 +166,7 @@ data:extend({
       picture_off = {
         layers = {
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp.png",
             priority = "high",
             width = 83,
             height = 70,
@@ -175,7 +175,7 @@ data:extend({
             tint = {0.9, 0.9, 1}
           },
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
             priority = "high",
             width = 76,
             height = 47,
@@ -186,7 +186,7 @@ data:extend({
         }
       },
       picture_on = {
-        filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-light.png",
+        filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-light.png",
         priority = "high",
         width = 90,
         height = 78,
@@ -226,7 +226,7 @@ data:extend({
       radius_visualisation_specification = {
         distance = 32,
         sprite = {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
             width = 12,
             height = 12,
             scale = 1,
@@ -258,7 +258,7 @@ data:extend({
       picture_off = {
         layers = {
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp.png",
             priority = "high",
             width = 83,
             height = 70,
@@ -267,7 +267,7 @@ data:extend({
             tint = {0.9, 0.9, 1}
           },
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
             priority = "high",
             width = 76,
             height = 47,
@@ -278,7 +278,7 @@ data:extend({
         }
       },
       picture_on = {
-        filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-light.png",
+        filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-light.png",
         priority = "high",
         width = 90,
         height = 78,
@@ -318,7 +318,7 @@ data:extend({
       radius_visualisation_specification = {
         distance = 15,
         sprite = {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
             width = 12,
             height = 12,
             scale = 1,
@@ -350,7 +350,7 @@ data:extend({
       picture_off = {
         layers = {
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp.png",
             priority = "high",
             width = 83,
             height = 70,
@@ -359,7 +359,7 @@ data:extend({
             tint = {1.0, 0.8, 0.8}
           },
           {
-            filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
+            filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-shadow.png",
             priority = "high",
             width = 76,
             height = 47,
@@ -370,7 +370,7 @@ data:extend({
         }
       },
       picture_on = {
-        filename = "__terrapalus__/graphics/entity/inhibitor-lamp/lamp-light.png",
+        filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/lamp-light.png",
         priority = "high",
         width = 90,
         height = 78,
@@ -422,7 +422,7 @@ data:extend({
     hidden = true,
     animation =
     {
-      filename = "__terrapalus__/graphics/entity/uv-burn/smoke.png",
+      filename = "__terrapalus-updated__/graphics/entity/uv-burn/smoke.png",
       width = 152,
       height = 120,
       line_length = 5,
@@ -489,7 +489,7 @@ data:extend({
     radius_visualisation_specification = {
       distance = 15,
       sprite = {
-        filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+        filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
         width = 12,
         height = 12,
         scale = 1,
@@ -557,7 +557,7 @@ data:extend({
     radius_visualisation_specification = {
       distance = 22,
       sprite = {
-        filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+        filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
         width = 12,
         height = 12,
         scale = 1,
@@ -625,7 +625,7 @@ data:extend({
     radius_visualisation_specification = {
       distance = 30,
       sprite = {
-        filename = "__terrapalus__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
+        filename = "__terrapalus-updated__/graphics/entity/inhibitor-lamp/inhibitor-lamp-radius-visualization.png",
         width = 12,
         height = 12,
         scale = 1,

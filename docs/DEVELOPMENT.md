@@ -124,7 +124,7 @@ Enable debug visualizations:
    {
      type = "item",
      name = "my-new-item",
-     icon = "__terrapalus__/graphics/icons/my-item.png",
+     icon = "__terrapalus-updated__/graphics/icons/my-item.png",
      icon_size = 64,
      subgroup = "intermediate-product",
      order = "a[my-item]",

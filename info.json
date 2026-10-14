@@ -1,10 +1,11 @@
 {
-  "name": "terrapalus",
+  "name": "terrapalus-updated",
   "version": "0.2.8",
-  "title": "Terra Palus",
-  "author": "Lukah",
+  "title": "Terra Palus (2.1)",
+  "author": "Lukah, updated by Alex Green",
+  "homepage": "https://github.com/GreenTech-Solutions/terrapalus-updated",
   "factorio_version": "2.0",
   "space_travel_required": true,
-  "dependencies": ["base >= 2.0.15", "space-age", "? PlanetsLib"],
-  "description": "Adds a new hybrid planet combining features of Nauvis and Gleba. Brave the dangerous swamp moon of Terra Palus; mine Palusium ore and use UV light to freeze those that would see you destroyed."
+  "dependencies": ["base >= 2.0.15", "space-age", "? PlanetsLib", "! terrapalus"],
+  "description": "Adds a new hybrid planet combining features of Nauvis and Gleba. Brave the dangerous swamp moon of Terra Palus; mine Palusium ore and use UV light to freeze those that would see you destroyed.\nTerra Palus by Lukah, updated for Factorio 2.1. Prototype and setting names are unchanged, so a save with the original mod can switch to this one."
 }

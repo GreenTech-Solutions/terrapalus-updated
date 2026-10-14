@@ -3,7 +3,7 @@ data:extend(
   {
       type = "technology",
       name = "planet-discovery-terrapalus",
-      icons = util.technology_icon_constant_planet("__terrapalus__/graphics/technology/terrapalus.png"),
+      icons = util.technology_icon_constant_planet("__terrapalus-updated__/graphics/technology/terrapalus.png"),
       icon_size = 256,
       essential = true,
       effects =
@@ -31,7 +31,7 @@ data:extend(
     {
       type = "technology",
       name = "palusium-processing",
-      icon = "__terrapalus__/graphics/technology/palusium-processing.png",
+      icon = "__terrapalus-updated__/graphics/technology/palusium-processing.png",
       icon_size = 256,
       prerequisites = {"planet-discovery-terrapalus"},
       effects = {
@@ -55,7 +55,7 @@ data:extend(
   {
     type = "technology",
     name = "palusium-crushing",
-    icon = "__terrapalus__/graphics/technology/palusium-crushing.png",
+    icon = "__terrapalus-updated__/graphics/technology/palusium-crushing.png",
     icon_size = 256,
     prerequisites = {"planet-discovery-terrapalus"},
     effects = {
@@ -79,7 +79,7 @@ data:extend(
 {
   type = "technology",
   name = "palusium-liquefaction",
-  icon = "__terrapalus__/graphics/technology/palusium-liquefaction.png",  -- Placeholder icon
+  icon = "__terrapalus-updated__/graphics/technology/palusium-liquefaction.png",  -- Placeholder icon
   icon_size = 256,
   prerequisites = {"palusium-crushing"},
   effects = {
@@ -103,7 +103,7 @@ data:extend(
 {
   type = "technology",
   name = "palusium-refining",
-  icon = "__terrapalus__/graphics/technology/palusium-refining.png",  -- Placeholder icon
+  icon = "__terrapalus-updated__/graphics/technology/palusium-refining.png",  -- Placeholder icon
   icon_size = 256,
   prerequisites = {"palusium-crushing"},
   effects = {
@@ -127,7 +127,7 @@ data:extend(
 {
   type = "technology",
   name = "inhibitor-lamp",
-  icon = "__terrapalus__/graphics/technology/inhibitor-lamp.png",
+  icon = "__terrapalus-updated__/graphics/technology/inhibitor-lamp.png",
   icon_size = 256,
   prerequisites = {"palusium-refining","palusium-processing"},
   effects = {
@@ -151,7 +151,7 @@ data:extend(
 {
   type = "technology",
   name = "inhibitor-lamp-mk2",
-  icon = "__terrapalus__/graphics/technology/inhibitor-lamp.png",
+  icon = "__terrapalus-updated__/graphics/technology/inhibitor-lamp.png",
   icon_size = 256,
   prerequisites = {"inhibitor-lamp", "production-science-pack"},
   effects = {
@@ -176,7 +176,7 @@ data:extend(
 {
   type = "technology",
   name = "inhibitor-lamp-mk3",
-  icon = "__terrapalus__/graphics/technology/inhibitor-lamp.png",
+  icon = "__terrapalus-updated__/graphics/technology/inhibitor-lamp.png",
   icon_size = 256,
   prerequisites = {"inhibitor-lamp-mk2", "utility-science-pack"},
   effects = {
@@ -202,7 +202,7 @@ data:extend(
 {
   type = "technology",
   name = "inhibitor-lamp-damage",
-  icon = "__terrapalus__/graphics/technology/inhibitor-lamp.png",
+  icon = "__terrapalus-updated__/graphics/technology/inhibitor-lamp.png",
   icon_size = 256,
   prerequisites = {"inhibitor-lamp", "production-science-pack"},
   effects = {
@@ -428,7 +428,7 @@ data:extend(
 {
   type = "technology",
   name = "ultravium-power-systems",
-  icon = "__terrapalus__/graphics/technology/uv-battery.png",
+  icon = "__terrapalus-updated__/graphics/technology/uv-battery.png",
   icon_size = 256,
   prerequisites = {"palusium-liquefaction"},
   effects = {
@@ -458,7 +458,7 @@ data:extend(
 {
   type = "technology",
   name = "ultravium-power-systems-2",
-  icon = "__terrapalus__/graphics/technology/uv-battery.png",
+  icon = "__terrapalus-updated__/graphics/technology/uv-battery.png",
   icon_size = 256,
   prerequisites = {"ultravium-power-systems", "production-science-pack"},
   effects = {
@@ -489,7 +489,7 @@ data:extend(
 {
   type = "technology",
   name = "ultravium-power-systems-3",
-  icon = "__terrapalus__/graphics/technology/uv-battery.png",
+  icon = "__terrapalus-updated__/graphics/technology/uv-battery.png",
   icon_size = 256,
   prerequisites = {"ultravium-power-systems-2", "utility-science-pack"},
   effects = {
@@ -521,7 +521,7 @@ data:extend(
 {
   type = "technology",
   name = "uv-personal-equipment",
-  icon = "__terrapalus__/graphics/technology/personal-uv-defense.png",
+  icon = "__terrapalus-updated__/graphics/technology/personal-uv-defense.png",
   icon_size = 256,
   prerequisites = {"inhibitor-lamp", "personal-laser-defense-equipment", "energy-shield-equipment"},
   effects = {
