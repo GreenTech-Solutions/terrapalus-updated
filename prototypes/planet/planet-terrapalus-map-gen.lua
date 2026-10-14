@@ -704,6 +704,10 @@ function MapGen.terrapalus()
         map_gen_settings.autoplace_controls["uranium-ore"] = {}
         map_gen_settings.autoplace_settings["entity"].settings["uranium-ore"] = {}
     end
+    if settings.startup["terrapalus-stromatolites"].value then
+        map_gen_settings.autoplace_settings["entity"].settings["iron-stromatolite"] = {}
+        map_gen_settings.autoplace_settings["entity"].settings["copper-stromatolite"] = {}
+    end
     return map_gen_settings
 end
 

@@ -394,5 +394,12 @@ data:extend({
         setting_type = "startup",
         default_value = false,
         order = "i-a"
+    },
+    {
+        type = "bool-setting",
+        name = "terrapalus-stromatolites",
+        setting_type = "startup",
+        default_value = false,
+        order = "i-b"
     }
 })
