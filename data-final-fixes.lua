@@ -15,6 +15,7 @@ end
 local function allow_on_terrapalus(entity_type, entity_name)
     if data.raw[entity_type] and data.raw[entity_type][entity_name] then
         local entity = data.raw[entity_type][entity_name]
+        ---@diagnostic disable-next-line: undefined-field
         for _, condition in pairs(entity.surface_conditions or {}) do
             local value = terrapalus_value(condition.property)
             if condition.min and value < condition.min then condition.min = value end
