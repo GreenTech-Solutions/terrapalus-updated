@@ -603,6 +603,9 @@ function MapGen.terrapalus()
                 size = lowland_size / 10
             },
             ["enemy-base"] = {},
+            -- the pentapod spawners' own control, as on Gleba: listing the spawners in autoplace_settings instead made
+            -- the planet fail to load when another mod removed their autoplace
+            ["gleba_enemy_base"] = {},
             ["gleba-spawner"] = {},
             ["gleba-spawner-small"] = {}
         },
@@ -683,16 +686,6 @@ function MapGen.terrapalus()
                     ["ashland-lichen-tree-flaming"] = {
                         frequency = 0.4,
                         size = 0.8
-                    },
-                    ["gleba-spawner"] = {
-                        frequency = spawner_frequency,
-                        size = spawner_size,
-                        richness = 1.0
-                    },
-                    ["gleba-spawner-small"] = {
-                        frequency = small_spawner_frequency,
-                        size = small_spawner_size,
-                        richness = 2.0
                     },
                 }
             }
