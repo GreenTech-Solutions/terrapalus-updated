@@ -557,6 +557,21 @@ script.on_init(function()
 
     -- Populate the global lamp list with existing lamps
     rescan_all_lamps()
+
+    -- A save switching from the original Terra Palus keeps the enemies it froze disabled, but not its lists of them,
+    -- so nothing would ever thaw them: track them as frozen, those out of a lamp's range then thaw as usual
+    for _, surface in pairs(game.surfaces) do
+        for _, enemy in pairs(surface.find_entities_filtered({force = get_enemy_forces(), type = {"unit", "spider-unit"}})) do
+            if enemy.disabled_by_script and not storage.frozen_entities[enemy.unit_number] then
+                storage.frozen_entities[enemy.unit_number] = {
+                    entity = enemy,
+                    freeze_start_tick = game.tick,
+                    is_freezing = false
+                }
+                table.insert(storage.frozen_entity_keys, enemy.unit_number)
+            end
+        end
+    end
 end)
 
 -- Handle loading the script
