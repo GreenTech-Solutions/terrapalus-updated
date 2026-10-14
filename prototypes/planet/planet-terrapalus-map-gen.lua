@@ -31,6 +31,9 @@ local spawner_frequency = settings.startup["terrapalus-spawner-frequency"].value
 local spawner_size = settings.startup["terrapalus-spawner-size"].value
 local small_spawner_frequency = settings.startup["terrapalus-small-spawner-frequency"].value
 local small_spawner_size = settings.startup["terrapalus-small-spawner-size"].value
+-- The spawner settings scale the spawners' probability relative to their defaults, so the defaults generate as before
+local spawner_factor = (spawner_frequency / 0.4) * (spawner_size / 0.7)
+local small_spawner_factor = (small_spawner_frequency / 5.6) * (small_spawner_size / 1.8)
 local enemy_safe_zone_radius = settings.startup["terrapalus-enemy-safe-zone-radius"].value
 
 
@@ -481,12 +484,12 @@ data:extend({
     {
         type = "noise-expression",
         name = "terrapalus_spawner",
-        expression = "max(0.01 * terrapalus_starting_enemies, max(min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terrapalus_fertile_spots_coastal * 5000 - terrapalus_biome_mask_green * 25000)) * (distance > 500 * terrapalus_starting_area_multiplier)) * terrapalus_above_deep_water_mask"
+        expression = "(max(0.01 * terrapalus_starting_enemies, max(min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terrapalus_fertile_spots_coastal * 5000 - terrapalus_biome_mask_green * 25000)) * (distance > 500 * terrapalus_starting_area_multiplier)) * terrapalus_above_deep_water_mask) * var('control:gleba-spawner:frequency') * var('control:gleba-spawner:size') * " .. spawner_factor
     },
     {
         type = "noise-expression",
         name = "terrapalus_spawner_small",
-        expression = "max(0.02 * terrapalus_starting_enemies, 0.02 * terrapalus_starting_enemies_safe, min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terrapalus_fertile_spots_coastal * 5000 - terrapalus_biome_mask_green * 25000)) * terrapalus_above_deep_water_mask * (1 - terrapalus_starting_enemies_safe)"
+        expression = "(max(0.02 * terrapalus_starting_enemies, 0.02 * terrapalus_starting_enemies_safe, min(0.02, enemy_autoplace_base(0, 8)), min(0.001, terrapalus_fertile_spots_coastal * 5000 - terrapalus_biome_mask_green * 25000)) * terrapalus_above_deep_water_mask * (1 - terrapalus_starting_enemies_safe)) * var('control:gleba-spawner-small:frequency') * var('control:gleba-spawner-small:size') * " .. small_spawner_factor
     },
     {
         type = "noise-expression",
