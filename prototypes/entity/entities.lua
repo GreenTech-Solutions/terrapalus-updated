@@ -115,8 +115,7 @@ data:extend({
       default_rgb_signal = { type = "virtual", name = "signal-white" },
 
       -- Circuit properties
-      circuit_wire_connection_point = circuit_connector_definitions["lamp"].points,
-      circuit_connector_sprites = circuit_connector_definitions["lamp"].sprites,
+      circuit_connector = circuit_connector_definitions["lamp"],
       circuit_wire_max_distance = default_circuit_wire_max_distance,
   },
   -- Inhibitor Lamp MK2 (increased range)
@@ -207,8 +206,7 @@ data:extend({
       default_green_signal = { type = "virtual", name = "signal-green" },
       default_blue_signal = { type = "virtual", name = "signal-blue" },
       default_rgb_signal = { type = "virtual", name = "signal-white" },
-      circuit_wire_connection_point = circuit_connector_definitions["lamp"].points,
-      circuit_connector_sprites = circuit_connector_definitions["lamp"].sprites,
+      circuit_connector = circuit_connector_definitions["lamp"],
       circuit_wire_max_distance = default_circuit_wire_max_distance,
   },
   -- Inhibitor Lamp MK3 (maximum range)
@@ -299,8 +297,7 @@ data:extend({
       default_green_signal = { type = "virtual", name = "signal-green" },
       default_blue_signal = { type = "virtual", name = "signal-blue" },
       default_rgb_signal = { type = "virtual", name = "signal-white" },
-      circuit_wire_connection_point = circuit_connector_definitions["lamp"].points,
-      circuit_connector_sprites = circuit_connector_definitions["lamp"].sprites,
+      circuit_connector = circuit_connector_definitions["lamp"],
       circuit_wire_max_distance = default_circuit_wire_max_distance,
   },
   -- Inhibitor Lamp Damage Variant (slow + damage)
@@ -391,8 +388,7 @@ data:extend({
       default_green_signal = { type = "virtual", name = "signal-green" },
       default_blue_signal = { type = "virtual", name = "signal-blue" },
       default_rgb_signal = { type = "virtual", name = "signal-white" },
-      circuit_wire_connection_point = circuit_connector_definitions["lamp"].points,
-      circuit_connector_sprites = circuit_connector_definitions["lamp"].sprites,
+      circuit_connector = circuit_connector_definitions["lamp"],
       circuit_wire_max_distance = default_circuit_wire_max_distance,
   },
     {
