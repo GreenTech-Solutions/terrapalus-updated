@@ -1216,6 +1216,64 @@ script.on_event(defines.events.on_tick, function(event)
 end)
 
 
+-- Optional extras of the Terra Palus map generation, off by default (startup settings). The planet's map_gen_settings
+-- only reach a surface created after the setting changed, so a save that already has Terra Palus gets them here.
+local OPTIONAL_AUTOPLACE = {
+    {setting = "terrapalus-uranium-ore", control = "uranium-ore", entities = {"uranium-ore"}},
+    {setting = "terrapalus-stromatolites", entities = {"iron-stromatolite", "copper-stromatolite"}},
+}
+
+-- Generated chunks of a surface that hold no entity of a player's force (any force but neutral and the enemies)
+local function generated_chunks_without_buildings(surface)
+    local player_forces = {}
+    for _, force in pairs(game.forces) do
+        if force.name ~= "neutral" and not is_enemy_force(force) then
+            table.insert(player_forces, force.name)
+        end
+    end
+    local chunks = {}
+    for chunk in surface.get_chunks() do
+        if surface.is_chunk_generated(chunk)
+            and surface.count_entities_filtered({area = chunk.area, force = player_forces, limit = 1}) == 0 then
+            table.insert(chunks, {x = chunk.x, y = chunk.y})
+        end
+    end
+    return chunks
+end
+
+-- Match the Terra Palus surface to the optional extras' startup settings. Turned on, an extra generates in new chunks
+-- and in the generated chunks without buildings; turned off, new chunks no longer get it and placed ones stay.
+local function sync_optional_autoplace()
+    local surface = game.surfaces["terrapalus"]
+    if not surface then return end
+    local map_gen_settings = surface.map_gen_settings
+    local entity_settings = map_gen_settings.autoplace_settings.entity.settings
+    local added = {}
+    local changed = false
+    for _, extra in pairs(OPTIONAL_AUTOPLACE) do
+        local enabled = settings.startup[extra.setting].value
+        if extra.control and prototypes.autoplace_control[extra.control]
+            and enabled ~= (map_gen_settings.autoplace_controls[extra.control] ~= nil) then
+            map_gen_settings.autoplace_controls[extra.control] = enabled and {frequency = 1, size = 1, richness = 1} or nil
+            changed = true
+        end
+        for _, name in pairs(extra.entities) do
+            if prototypes.entity[name] and enabled ~= (entity_settings[name] ~= nil) then
+                entity_settings[name] = enabled and {frequency = 1, size = 1, richness = 1} or nil
+                if enabled then table.insert(added, name) end
+                changed = true
+            end
+        end
+    end
+    if not changed then return end
+    surface.map_gen_settings = map_gen_settings
+    if #added > 0 then
+        local chunks = generated_chunks_without_buildings(surface)
+        surface.regenerate_entity(added, chunks)
+        log("Terra Palus: " .. table.concat(added, ", ") .. " placed in " .. #chunks .. " generated chunks without buildings")
+    end
+end
+
 -- Ensure configuration changes are handled properly
 script.on_configuration_changed(function(data)
     initialize_storage()
@@ -1269,4 +1327,6 @@ script.on_configuration_changed(function(data)
             apply_thawing_sticker(thaw_data.entity)
         end
     end
+
+    sync_optional_autoplace()
 end)
