@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.0
+Date: 2026-11-13
+  Features:
+    - a save with the original Terra Palus keeps its lamps, spotlights, charging stations and frozen enemies when it switches to this mod ([#4](https://github.com/GreenTech-Solutions/terrapalus-updated/issues/4))
+---------------------------------------------------------------------------------------------------
 Version: 0.5.0
 Date: 2026-10-26
   Features:
