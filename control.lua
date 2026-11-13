@@ -1,3 +1,4 @@
+local migrated_storage = require("migrated_storage")
 
 -- Factorio 2.0 uses 'storage' instead of 'global'
 
@@ -546,8 +547,20 @@ script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_e
     end
 end)
 
+-- A save that had the original Terra Palus hands its storage over (migrates_from in info.json): its lamps, spotlights,
+-- charging stations and frozen enemies are the same entities here. on_configuration_changed, which runs after on_init
+-- when the mod is added, drops the references that are no longer valid and rebuilds the lists.
+local function take_original_storage()
+    local old = migrated_storage.take({"terrapalus"})
+    if old then
+        local copied = migrated_storage.adopt(old)
+        log("Terra Palus: took " .. copied .. " storage tables of the original Terra Palus")
+    end
+end
+
 -- Initialization event to handle existing lamps and surfaces on startup
 script.on_init(function()
+    take_original_storage()
     initialize_storage()
     -- Initialize surfaces
     for _, surface in pairs(game.surfaces) do
@@ -1276,6 +1289,7 @@ end
 
 -- Ensure configuration changes are handled properly
 script.on_configuration_changed(function(data)
+    take_original_storage()
     initialize_storage()
 
     -- Ensure Terra Palus daytime is set correctly on mod update
