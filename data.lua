@@ -6,6 +6,7 @@ data.rso_ignore_resource_entities = data.rso_ignore_resource_entities or {}
 data.rso_ignore_resource_entities["palusium-ore"] = true
 
 require("prototypes.planet.planet")
+require("prototypes.planet.captive-nest")
 require("prototypes.planet.surface-render-parameter-effects")
 require("prototypes.technology")
 require("prototypes.entity.entities")
