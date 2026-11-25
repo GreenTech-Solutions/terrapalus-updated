@@ -36,8 +36,17 @@ allow_on_terrapalus("plant", "jellystem")
 
 -- In 2.x the captive biter spawner is an assembling-machine, so the old unit-spawner lookup found nothing. Widening its
 -- pressure range would also allow it on every planet between 1000 and 2000 hPa; a separate property keeps the earlier scope.
-local captive_spawner = data.raw["assembling-machine"] and data.raw["assembling-machine"]["captive-biter-spawner"]
-if captive_spawner and type(captive_spawner.surface_conditions) == "table" then
+-- Rampant, fixed adds a captive spawner for each of its factions, a copy of the vanilla one named
+-- "<faction>-captive-biter-spawner-rampant" (RampantFixed prototypes/SwarmUtils.lua), and those get the same treatment.
+local captive_spawners = {}
+for name, machine in pairs(data.raw["assembling-machine"] or {}) do
+    if (name == "captive-biter-spawner" or name:match("%-captive%-biter%-spawner%-rampant$"))
+        and type(machine.surface_conditions) == "table" then
+        captive_spawners[#captive_spawners + 1] = machine
+    end
+end
+
+if #captive_spawners > 0 then
     local function surface_value(planet, property)
         local own = planet.surface_properties and planet.surface_properties[property]
         if own ~= nil then return own end
@@ -45,8 +54,8 @@ if captive_spawner and type(captive_spawner.surface_conditions) == "table" then
         return prototype and prototype.default_value or 0
     end
 
-    local function can_place(planet)
-        for _, condition in pairs(captive_spawner.surface_conditions) do
+    local function can_place(spawner, planet)
+        for _, condition in pairs(spawner.surface_conditions) do
             local value = surface_value(planet, condition.property)
             if condition.min and value < condition.min then return false end
             if condition.max and value > condition.max then return false end
@@ -55,9 +64,12 @@ if captive_spawner and type(captive_spawner.surface_conditions) == "table" then
     end
 
     for _, planet in pairs(data.raw.planet or {}) do
-        if can_place(planet) then
-            planet.surface_properties = planet.surface_properties or {}
-            planet.surface_properties["terrapalus-captive-nest"] = 1
+        for _, spawner in pairs(captive_spawners) do
+            if can_place(spawner, planet) then
+                planet.surface_properties = planet.surface_properties or {}
+                planet.surface_properties["terrapalus-captive-nest"] = 1
+                break
+            end
         end
     end
 
@@ -66,11 +78,13 @@ if captive_spawner and type(captive_spawner.surface_conditions) == "table" then
         terrapalus.surface_properties["terrapalus-captive-nest"] = 1
     end
 
-    allow_on_terrapalus("assembling-machine", "captive-biter-spawner")
-    captive_spawner.surface_conditions[#captive_spawner.surface_conditions + 1] = {
-        property = "terrapalus-captive-nest",
-        min = 1,
-    }
+    for _, spawner in pairs(captive_spawners) do
+        allow_on_terrapalus("assembling-machine", spawner.name)
+        spawner.surface_conditions[#spawner.surface_conditions + 1] = {
+            property = "terrapalus-captive-nest",
+            min = 1,
+        }
+    end
 end
 
 -- Allow fish breeding (requested by SeymourWilliamsJr)
