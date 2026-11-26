@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.3
+Date: 2026-11-26
+  Bugfixes:
+    - a new map with Enemy Race Manager no longer fails in on_init, the ERM query falls back while ERM is not initialised yet
+---------------------------------------------------------------------------------------------------
 Version: 0.6.2
 Date: 2026-11-25
   Bugfixes:
