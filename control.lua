@@ -66,13 +66,36 @@ local VALID_ENEMY_TYPES = {
 -- one that just joined, refreshes it on the same tick
 local ENEMY_FORCES_CACHE_DURATION = 300  -- Refresh every 5 seconds
 
+-- Ask ERM whether a force is an enemy force. Returns false when ERM cannot answer: it is not installed, or its storage
+-- does not exist yet. ERM fills that storage in its on_init (enemyracemanager/controllers/initializer.lua:401-402,
+-- lib/helper/force_helper.lua:52) and loads after this mod, so during our on_init its is_enemy_force raises
+-- "attempt to index field 'enemy_forces_map' (a nil value)".
+local function erm_installed()
+    local interface = remote.interfaces["enemyracemanager"]
+    return interface ~= nil and interface["is_enemy_force"] ~= nil
+end
+
+local function ask_erm(force_name)
+    if not erm_installed() then
+        return false
+    end
+    local ok, enemy = pcall(function()
+        return remote.call("enemyracemanager", "is_enemy_force", force_name)
+    end)
+    if not ok then
+        return false
+    end
+    return true, enemy and true or false
+end
+
 -- Check if a force is an enemy force (uses ERM API if available)
 local function is_enemy_force(force)
     local force_name = type(force) == "string" and force or force.name
-    if remote.interfaces["enemyracemanager"] and remote.interfaces["enemyracemanager"]["is_enemy_force"] then
-        return remote.call("enemyracemanager", "is_enemy_force", force_name)
+    local answered, enemy = ask_erm(force_name)
+    if answered then
+        return enemy
     end
-    -- Fallback: check if force name starts with "enemy"
+    -- Fallback: check if force name starts with "enemy" (ERM's forces are enemy_<race> too)
     return string.find(force_name, "^enemy") ~= nil
 end
 
@@ -84,25 +107,25 @@ local function get_enemy_forces()
     end
 
     local forces = {}
-    if remote.interfaces["enemyracemanager"] and remote.interfaces["enemyracemanager"]["is_enemy_force"] then
-        -- Use ERM API to get all enemy forces
-        for _, force in pairs(game.forces) do
-            if remote.call("enemyracemanager", "is_enemy_force", force.name) then
-                table.insert(forces, force.name)
-            end
+    local erm = erm_installed()
+    local all_answered = true
+    for _, force in pairs(game.forces) do
+        local answered, enemy = ask_erm(force.name)
+        if not answered then
+            -- Fallback: forces whose name starts with "enemy"
+            enemy = string.find(force.name, "^enemy") ~= nil
+            all_answered = not erm
         end
-    else
-        -- Fallback: collect all forces starting with "enemy"
-        for _, force in pairs(game.forces) do
-            if string.find(force.name, "^enemy") then
-                table.insert(forces, force.name)
-            end
+        if enemy then
+            table.insert(forces, force.name)
         end
     end
 
-    -- Cache the result
-    storage.enemy_forces = forces
-    storage.enemy_forces_tick = game.tick
+    -- Cache the result, unless ERM is installed but could not answer yet: then ask it again next time
+    if all_answered then
+        storage.enemy_forces = forces
+        storage.enemy_forces_tick = game.tick
+    end
     return forces
 end
 
